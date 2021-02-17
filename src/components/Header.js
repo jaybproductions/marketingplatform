@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    background: "linear-gradient(to right, #4b6cb7, #182848)",
     textAlign: "right",
-    padding: "20px",
+    padding: "10px",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -138,7 +138,7 @@ const Header = (props) => {
           <Typography variant="h6" noWrap style={{ width: "90%" }}>
             <div className="title">
               <Link to={"/home"} style={{ color: "white" }}>
-                <h3>Marketing Platform</h3>
+                <h3></h3>
               </Link>
             </div>
           </Typography>

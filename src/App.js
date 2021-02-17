@@ -30,10 +30,6 @@ function App() {
         >
           <Switch>
             <Redirect exact from="/" to="/home" />
-            <Route path="/test">
-              {" "}
-              <Header component={<Home />} />
-            </Route>
             <Route path="/login">
               {" "}
               <Header component={<Login />} />

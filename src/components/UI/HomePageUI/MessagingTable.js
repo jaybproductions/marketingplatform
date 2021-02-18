@@ -45,18 +45,18 @@ export default function MessagingTable() {
   const [secondary, setSecondary] = React.useState(false);
   const itemArr = [
     {
-      title: "Add all content into one calendar.",
-      descr:
-        "Keep an unlimted number of posts and accounts inside of this calendar",
+      title: "Everything in one place.",
+      descr: "Keep in touch with all of your business contacts in one place.",
     },
     {
-      title: "Easy Copy/Paste Posting",
-      descr: "1. Open the post. 2. Copy Content. 3. Post Away!",
+      title: "Super easy lead follow up.",
+      descr:
+        "If someone provides their phone number on your website, easily message them directly for a follow-up.",
     },
     {
-      title: "No need to connect any accounts directly.",
+      title: "Integrated with Twilio.",
       descr:
-        "Keep all content on the site without needing to connect your accounts (Your privacy is important.).",
+        "Use an already establish platform to ensure deliverability of all messages.",
     },
     {
       title: "Constant Updates",
@@ -66,7 +66,7 @@ export default function MessagingTable() {
     {
       title: "Did we mention? It's completely Free to use",
       descr:
-        "As long as you have an active hosting account you are free to use this feature as much or as little as you'd like.",
+        "As long as you have an active hosting account, all you need is a valid Twilio Number.",
     },
   ];
   const [listArr, setListArr] = React.useState(itemArr);

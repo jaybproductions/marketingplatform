@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import HeroSection from "../components/UI/HeroSection";
-import WhyUs from "../components/UI/WhyUs";
+import HeroSection from "../components/UI/HomePageUI/HeroSection";
+import WhyUs from "../components/UI/HomePageUI/WhyUs";
 import UserContext from "./../contexts/UserContext";
-import PricingContainer from "../components/UI/pricing/PricingContainer";
+import PricingContainer from "../components/UI/HomePageUI/pricing/PricingContainer";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -12,6 +12,8 @@ const Home = () => {
         <>
           {" "}
           <HeroSection />
+          <WhyUs />
+          <PricingContainer />
         </>
       ) : (
         <div className="home">
@@ -28,8 +30,6 @@ const Home = () => {
           </ul>
         </div>
       )}
-      <WhyUs />
-      <PricingContainer />
     </div>
   );
 };

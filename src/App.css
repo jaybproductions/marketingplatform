@@ -40,6 +40,10 @@
   text-align: center;
 }
 
+.billing {
+  text-align: center;
+}
+
 body,
 html {
   height: 100%;
@@ -52,4 +56,14 @@ html {
 
 .heading {
   padding: 10px;
+}
+
+.billing {
+  margin: auto;
+  width: 60%;
+  padding-top: 20px;
+}
+
+.sub-card {
+  padding-top: 20px;
 }

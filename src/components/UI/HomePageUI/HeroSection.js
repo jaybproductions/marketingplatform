@@ -1,7 +1,8 @@
 import React from "react";
 import "./Hero.css";
 import Paper from "@material-ui/core/Paper";
-import HeroImg from "../../images/heroimage.png";
+import HeroImg from "../../../images/heroimage.png";
+import HeroImg2 from "../../../images/twilio.png";
 
 const HeroSection = () => {
   return (
@@ -18,7 +19,8 @@ const HeroSection = () => {
             We use Amazon Lightsail with Wordpress for an affordable, scalable
             option for all types of hosting needs. <br />
             <br />
-            <img src={HeroImg} width="300px" />
+            <img src={HeroImg} width="300px" style={{ paddingRight: "0px" }} />
+            <img src={HeroImg2} width="200px" style={{ paddingLeft: "0px" }} />
           </p>
           <p className="lead">
             <a className="btn btn-primary btn-lg" href="#" role="button">

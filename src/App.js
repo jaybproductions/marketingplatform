@@ -17,6 +17,7 @@ import Header from "./components/Header";
 import Settings from "./pages/Settings";
 import Websites from "./pages/Websites";
 import Messages from "./pages/Messages";
+import Billing from "./pages/Billing";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -57,6 +58,10 @@ function App() {
             <Route path="/websites">
               {" "}
               <Header component={<Websites />} />
+            </Route>
+            <Route path="/billing">
+              {" "}
+              <Header component={<Billing />} />
             </Route>
             <Route path="/messages">
               {" "}

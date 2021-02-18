@@ -1,37 +1,69 @@
 const functions = require("firebase-functions");
-
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
+require("dotenv").config();
+//initialize stripe module
 const stripe = require("stripe")(
   "sk_test_51ILfdTIx8kJ3JcBGCZXdcQe0Zgqc43pqbu2vm1yrMUIMRXHYBSLCd7Vja6L4iwdPAktm8HE6oTTtVoT0f2d8xWZw008UEjBJce"
 );
 
-const rootURL = "https://chart.googleapis.com/chart?";
-
+//initialize express app
 const app = express();
 
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
+//middlewares
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
 
+const admin = require("firebase-admin");
+const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-4b21dea12c.json");
+
+//initialize admin sdk
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 const db = admin.firestore();
 
+//initialize twilio client
+const accountSid = "AC612f17d3dac16ff9ae8aeaae1bfebe94";
+const authToken = "9bbfbc1fb1b4a88f483ef3da731571f9";
+const client = require("twilio")(accountSid, authToken);
+const MessagingResponse = require("twilio").twiml.MessagingResponse;
+
+//home route
 app.get("/", (req, res) => {
   res.send("hello");
 });
 
+//twilio routes
+app.post("/twilio", (req, res) => {
+  const { phone, message } = req.body;
+  client.messages
+    .create({
+      body: message,
+      from: "+18283830613",
+      to: phone,
+    })
+    .then((message) => res.send(message.sid));
+});
+
+app.post("/twilio/sms", (req, res) => {
+  const { message } = req.body;
+  const twiml = new MessagingResponse();
+
+  twiml.message(message);
+
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(twiml.toString());
+});
+
+//stripe routes
 app.get("/teststripe", (req, res) => {
   let customerInfo = [];
   stripe.customers
@@ -65,6 +97,7 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+//new user route
 exports.addUser = functions.auth.user().onCreate((user) => {
   const newUser = {
     id: user.uid,

@@ -22,4 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /functions/marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json
+/functions/marketingplatform-3b5c7-firebase-adminsdk-l8n9s-4b21dea12c.json
+/functions/.env
 /functions/node_modules

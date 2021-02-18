@@ -67,3 +67,7 @@ html {
 .sub-card {
   padding-top: 20px;
 }
+
+.pricing-container {
+  margin: auto;
+}

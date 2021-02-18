@@ -54,10 +54,23 @@ app.post("/twilio", (req, res) => {
 });
 
 app.post("/twilio/sms", (req, res) => {
-  const { message } = req.body;
   const twiml = new MessagingResponse();
+  const { Body, From, To } = req.body;
 
-  twiml.message(message);
+  db.collection("messages")
+    .doc()
+    .set({
+      message: Body,
+      timestamp: Date.now(),
+      from: From,
+      to: To,
+    })
+    .then(() => {
+      console.log("Document successfully written!");
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
 
   res.writeHead(200, { "Content-Type": "text/xml" });
   res.end(twiml.toString());

@@ -26,29 +26,13 @@ const SendMessage = () => {
       console.log(response.status);
 
       if (response.status === 200) {
-        const docRef = firebase.db.collection("users").doc(user.uid);
-        const snapshot = await docRef.get();
-        console.log(snapshot.data().contacts);
-        const checkContact = snapshot.data().contacts.forEach((item, index) => {
-          if (item.phone == phone) {
-            console.log("contact found - no need to add new conversation");
-            convoArr.push(
-              { message: message, timestamp: Date.now() },
-              ...item.conversation
-            );
-            const messageDB = { message: message, timestamp: Date.now() };
-            console.log(item.conversation);
-            console.log(convoArr);
-            //docRef.update({
-            //contacts: firebase.app.firestore.FieldValue.arrayUnion({
-            //conversation: messageDB,
-            // }),
-            //});
+        const docRef = firebase.db.collection("messages").doc(user.uid);
 
-            return;
-          } else {
-            console.log("searching for contact...");
-          }
+        const snapshot = await docRef.set({
+          message: message,
+          timestamp: Date.now(),
+          to: phone,
+          from: "twilio number",
         });
       }
     }

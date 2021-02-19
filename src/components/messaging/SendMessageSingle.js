@@ -10,7 +10,6 @@ const SendMessageSingle = ({ number, userNum }) => {
   let contactExists = false;
 
   const handleSubmit = async (e) => {
-    console.log(number);
     e.preventDefault();
     let convoArr = [];
 
@@ -43,10 +42,9 @@ const SendMessageSingle = ({ number, userNum }) => {
           timestamp: Date.now(),
         });
         const contactRef = await firebase.db.collection("contacts").get();
-        console.log(contactRef);
+
         const contactData = contactRef.forEach((contact) => {
-          console.log(contact.data());
-          if (number === contact.data().phone) {
+          if (number === contact.data().phone && contact.id === user.uid) {
             console.log("contact exists");
             contactExists = true;
           }

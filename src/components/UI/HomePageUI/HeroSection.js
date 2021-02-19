@@ -19,8 +19,18 @@ const HeroSection = () => {
             We use Amazon Lightsail with Wordpress for an affordable, scalable
             option for all types of hosting needs. <br />
             <br />
-            <img src={HeroImg} width="300px" style={{ paddingRight: "0px" }} />
-            <img src={HeroImg2} width="200px" style={{ paddingLeft: "0px" }} />
+            <img
+              src={HeroImg}
+              width="300px"
+              style={{ paddingRight: "0px" }}
+              alt="Hero Image"
+            />
+            <img
+              src={HeroImg2}
+              width="200px"
+              style={{ paddingLeft: "0px" }}
+              alt="another hero"
+            />
           </p>
           <p className="lead">
             <a className="btn btn-primary btn-lg" href="#" role="button">

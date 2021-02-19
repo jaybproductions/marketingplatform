@@ -1,6 +1,5 @@
 import React from "react";
-import { Switch, Route, Link, Redirect } from "react-router-dom";
-import logo from "./logo.svg";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 
 //Route Imports
@@ -38,39 +37,39 @@ function App() {
             </Route>
             <Route path="/home">
               {" "}
-              <Header component={<Home />} />
+              <Header title={"Home"} component={<Home />} />
             </Route>
             <Route path="/:userid/client/:client">
               {" "}
-              <Header component={<SocialPage />} />
+              <Header title="Social Calendar" component={<SocialPage />} />
             </Route>
             <Route path="/signup">
               {" "}
-              <Header component={<Signup />} />
+              <Header title="Sign Up" component={<Signup />} />
             </Route>
             <Route path="/forgot">
               {" "}
-              <Header component={<Forgot />} />
+              <Header title="Forgot Password" component={<Forgot />} />
             </Route>
             <Route path="/settings">
               {" "}
-              <Header component={<Settings />} />
+              <Header title="Settings" component={<Settings />} />
             </Route>
             <Route path="/websites">
               {" "}
-              <Header component={<Websites />} />
+              <Header title="Websites" component={<Websites />} />
             </Route>
             <Route path="/billing">
               {" "}
-              <Header component={<Billing />} />
+              <Header title="Billing" component={<Billing />} />
             </Route>
             <Route path="/messages">
               {" "}
-              <Header component={<Messages />} />
+              <Header title="Messages" component={<Messages />} />
             </Route>
             <Route path="/message/:contact">
               {" "}
-              <Header component={<SingleConversation />} />
+              <Header title="Conversation" component={<SingleConversation />} />
             </Route>
           </Switch>
         </div>

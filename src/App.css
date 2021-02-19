@@ -76,6 +76,8 @@ html {
   background-color: gray;
   margin: auto;
   width: 20%;
+  border-radius: 25px;
+  padding: 10px;
 }
 
 .sent {
@@ -83,4 +85,7 @@ html {
   width: 20%;
   background-color: blue;
   color: white;
+  border-radius: 25px;
+  padding: 10px;
+  margin-left: 55%;
 }

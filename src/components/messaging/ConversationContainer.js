@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
-import Conversation from "../messaging/Conversation";
+import Conversation from "./Conversation";
 
 const ConversationList = ({ contact }) => {
   const { user } = useContext(UserContext);
@@ -9,10 +9,8 @@ const ConversationList = ({ contact }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [recieved, setRecieved] = useState(null);
   const [sent, setSent] = useState(null);
-  let msgArr = [];
 
   useEffect(() => {
-    console.log(contact);
     getMessages();
   }, [user]);
 
@@ -40,6 +38,8 @@ const ConversationList = ({ contact }) => {
         .collection("messages")
         .where("to", "==", `${contact}`)
         .onSnapshot(handleSentSnapshot);
+
+      firebase.db.collection("contacts");
     }
   };
 
@@ -58,14 +58,23 @@ const ConversationList = ({ contact }) => {
   };
 
   const handleSort = () => {
-    //console.log(sent, recieved);
     let tempArr = [];
+    let filteredArr = [];
     tempArr.push(...sent, ...recieved);
-    const sorted = tempArr.sort((a, b) => {
+
+    const filtered = tempArr.filter((item) => {
+      if (item.to == userInfo.twilioNum || item.from == userInfo.twilioNum) {
+        filteredArr.push(item);
+        return false;
+      } else {
+        return true;
+      }
+    });
+    const sorted = filteredArr.sort((a, b) => {
       return a.timestamp - b.timestamp;
     });
+
     setMessages(sorted);
-    console.log(sorted);
   };
 
   return (

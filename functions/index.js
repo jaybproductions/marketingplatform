@@ -21,7 +21,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
+const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-4b21dea12c.json");
 
 //initialize admin sdk
 admin.initializeApp({
@@ -120,6 +120,7 @@ exports.addUser = functions.auth.user().onCreate((user) => {
     isAdmin: false,
     created: Date.now(),
     websites: [],
+    twilioNum: "",
     subscriptionInfo: {
       type: "",
       monthlyAmount: 0,

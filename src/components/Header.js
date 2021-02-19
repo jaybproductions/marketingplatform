@@ -18,8 +18,6 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import HomeOutlined from "@material-ui/icons/HomeOutlined";
 import TodayIcon from "@material-ui/icons/Today";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -138,9 +136,7 @@ const Header = (props) => {
           </IconButton>
           <Typography variant="h6" noWrap style={{ width: "90%" }}>
             <div className="title">
-              <Link to={"/home"} style={{ color: "white" }}>
-                <h3></h3>
-              </Link>
+              <h3>{props.title}</h3>
             </div>
           </Typography>
           <Typography style={{ textAlign: "right" }}>
@@ -234,17 +230,6 @@ const Header = (props) => {
                 <ListItemText primary={item.name} />
               </ListItem>
             </Link>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
           ))}
         </List>
       </Drawer>

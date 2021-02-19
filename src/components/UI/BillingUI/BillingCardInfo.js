@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+
 import UserContext from "../../../contexts/UserContext";
 import firebase from "../../../firebase";
 import axios from "axios";
-import BillingCard from "./BillingCard";
 import SubscriptionCard from "./SubscriptionCard";
 
 const useStyles = makeStyles({
@@ -30,7 +25,6 @@ const useStyles = makeStyles({
 });
 
 const BillingCardInfo = () => {
-  const classes = useStyles();
   const { user } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);

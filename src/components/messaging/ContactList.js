@@ -20,9 +20,8 @@ const ContactList = () => {
         .collection("contacts")
         .where("user", "==", `${user.uid}`)
         .get();
-      console.log(docRef.docs);
+
       docRef.docs.forEach((doc) => {
-        console.log(doc.data());
         tempArr.push(doc.data());
       });
       setContacts(tempArr);
@@ -30,7 +29,6 @@ const ContactList = () => {
   };
   return (
     <div className="contacts">
-      <h1>contacts</h1>
       {contacts &&
         contacts.map((contact, index) => (
           <>

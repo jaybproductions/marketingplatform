@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/core/styles";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import UserContext from "../../../contexts/UserContext";
 import firebase from "../../../firebase";
 import axios from "axios";
-import { utc } from "moment";
 
 const useStyles = makeStyles({
   root: {

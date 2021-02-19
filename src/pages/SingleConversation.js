@@ -1,5 +1,5 @@
 import React from "react";
-import ConversationList from "../components/messaging/ConversationList";
+import ConversationContainer from "../components/messaging/ConversationContainer";
 import SendMessage from "../components/messaging/SendMessage";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ const SingleConversation = () => {
         <button>Back to threads</button>{" "}
       </Link>
       <div className="convo" style={{ paddingTop: "20px" }}>
-        <ConversationList contact={contact} />
+        <ConversationContainer contact={contact} />
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
+import { Button } from "@material-ui/core";
 const Websites = () => {
   const [newWebsite, setNewWebsite] = useState("");
-  const [currentWebsite, setCurrentWebsite] = useState("");
+  const [currentWebsites, setCurrentWebsites] = useState("");
   const { user } = useContext(UserContext);
   useEffect(() => {
     getData();
@@ -15,10 +16,8 @@ const Websites = () => {
     } else {
       const docRef = firebase.db.collection("users").doc(user.uid);
       docRef.get().then((doc) => {
-        console.log(doc.data());
-        setCurrentWebsite(doc.data().websites[0]);
+        setCurrentWebsites(doc.data().websites);
       });
-      console.log(newWebsite);
     }
   };
 
@@ -30,9 +29,8 @@ const Websites = () => {
     } else {
       const docRef = firebase.db.collection("users").doc(user.uid);
       docRef.get().then((doc) => {
-        console.log(doc.data());
         websiteArr.push(newWebsite, ...doc.data().websites);
-        console.log(websiteArr);
+
         docRef.update({
           websites: websiteArr,
         });
@@ -44,8 +42,6 @@ const Websites = () => {
 
   return (
     <div className="websites">
-      <h1>Websites Page</h1>
-      <p>This is where your websites will go.</p>
       <form>
         <label>
           Enter a new website to monitor(in "domain.com" format <br />
@@ -65,12 +61,16 @@ const Websites = () => {
         </button>
       </form>
       <div className="website-to-show">
-        <iframe
-          src={"https://" + currentWebsite}
-          width="80%"
-          height="1000px"
-          allowFullScreen
-        />
+        {currentWebsites &&
+          currentWebsites.map((website, index) => (
+            <>
+              <Button>
+                <a href={"http://" + website} target="_blank">
+                  {website}
+                </a>
+              </Button>
+            </>
+          ))}
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-4b21dea12c.json");
+const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
 
 //initialize admin sdk
 admin.initializeApp({
@@ -43,11 +43,12 @@ app.get("/", (req, res) => {
 
 //twilio routes
 app.post("/twilio", (req, res) => {
-  const { phone, message } = req.body;
+  const { phone, message, from } = req.body;
+
   client.messages
     .create({
       body: message,
-      from: "+18283830613",
+      from: from,
       to: phone,
     })
     .then((message) => res.send(message.sid));

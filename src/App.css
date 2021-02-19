@@ -71,3 +71,16 @@ html {
 .pricing-container {
   margin: auto;
 }
+
+.recieved {
+  background-color: gray;
+  margin: auto;
+  width: 20%;
+}
+
+.sent {
+  margin: auto;
+  width: 20%;
+  background-color: blue;
+  color: white;
+}

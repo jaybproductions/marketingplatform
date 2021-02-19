@@ -18,6 +18,7 @@ import Settings from "./pages/Settings";
 import Websites from "./pages/Websites";
 import Messages from "./pages/Messages";
 import Billing from "./pages/Billing";
+import SingleConversation from "./pages/SingleConversation";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -66,6 +67,10 @@ function App() {
             <Route path="/messages">
               {" "}
               <Header component={<Messages />} />
+            </Route>
+            <Route path="/message/:contact">
+              {" "}
+              <Header component={<SingleConversation />} />
             </Route>
           </Switch>
         </div>

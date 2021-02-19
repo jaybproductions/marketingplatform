@@ -3,26 +3,25 @@ import axios from "axios";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
 
-const SendMessage = () => {
+const SendMessageSingle = ({ number, userNum }) => {
   const { user } = useContext(UserContext);
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
+  let contactExists = false;
 
   const handleSubmit = async (e) => {
+    console.log(number);
     e.preventDefault();
     let convoArr = [];
 
-    const newMessage = {
-      message: message,
-      phone: phone,
-    };
     if (!user) {
       console.log("waiting to connect");
     } else {
+      const phoneNumber = number;
       const newMessage = {
         message: message,
-        phone: phone,
-        from: user.twilioNum,
+        phone: phoneNumber,
+        from: userNum,
         timestamp: Date.now(),
       };
 
@@ -39,24 +38,32 @@ const SendMessage = () => {
         const userData = userSnapshot.data();
         const snapshot = await docRef.set({
           message: message,
-          phone: "+1" + phone,
+          to: number,
           from: userData.twilioNum,
           timestamp: Date.now(),
         });
+        const contactRef = await firebase.db.collection("contacts").get();
+        console.log(contactRef);
+        const contactData = contactRef.forEach((contact) => {
+          console.log(contact.data());
+          if (number === contact.data().phone) {
+            console.log("contact exists");
+            contactExists = true;
+          }
+        });
+        if (!contactExists) {
+          firebase.db.collection("contacts").doc().set({
+            name: "",
+            phone: number,
+            user: user.uid,
+          });
+        }
       }
     }
   };
   return (
     <div className="send">
       <form>
-        <label>
-          Phone Number:{" "}
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </label>
         <label>
           Message:{" "}
           <input
@@ -73,4 +80,4 @@ const SendMessage = () => {
   );
 };
 
-export default SendMessage;
+export default SendMessageSingle;

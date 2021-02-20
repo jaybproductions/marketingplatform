@@ -37,8 +37,16 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
           >
             {title}
           </Typography>
-          <Typography variant="h5" component="h2">
-            {features}
+          <Typography variant="span" component="h2">
+            <div style={{ margin: "auto", alignItems: "left" }}>
+              <ul style={{textAlign: 'left'}}>
+                {features.map((feature) => (
+                  <>
+                    <li style={{ fontSize: "16px" }}>{feature}</li>
+                  </>
+                ))}
+              </ul>
+            </div>
           </Typography>
           <Typography
             className={classes.pos}

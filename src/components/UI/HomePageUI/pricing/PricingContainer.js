@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const basicFeatures = ["good", "great", "best"];
+
 const PricingContainer = () => {
   const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
@@ -35,7 +37,7 @@ const PricingContainer = () => {
             {" "}
             <PricingTable
               title="Basic Package"
-              features="features list"
+              features={basicFeatures}
               price="$10"
               link=""
               buttonText="Buy Now"
@@ -46,7 +48,7 @@ const PricingContainer = () => {
           <Paper className={classes.paper}>
             <PricingTable
               title="Intermediate Package"
-              features="features list"
+              features={basicFeatures}
               price="$10"
               link=""
               buttonText="Buy Now"
@@ -57,7 +59,7 @@ const PricingContainer = () => {
           <Paper className={classes.paper}>
             <PricingTable
               title="Custom Package"
-              features="features list"
+              features={basicFeatures}
               price="Contact for more details."
               link=""
               buttonText="Contact Us"

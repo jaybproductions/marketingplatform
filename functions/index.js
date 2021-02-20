@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const AWS = require("aws-sdk");
 
 require("dotenv").config();
 //initialize stripe module
@@ -21,7 +22,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-4b21dea12c.json");
+const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
 
 //initialize admin sdk
 admin.initializeApp({
@@ -36,9 +37,66 @@ const authToken = "9bbfbc1fb1b4a88f483ef3da731571f9";
 const client = require("twilio")(accountSid, authToken);
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
+//Initialize AWS SDK for lightsail
+const AWS_ACCESS_KEY = functions.config().aws.access;
+const AWS_SECRET_KEY = functions.config().aws.secret;
+
+const lightsail = new AWS.Lightsail({
+  accessKeyId: AWS_ACCESS_KEY,
+  secretAccessKey: AWS_SECRET_KEY,
+  region: "us-east-1",
+});
+
 //home route
 app.get("/", (req, res) => {
   res.send("hello");
+});
+
+//AWS Routes
+app.get("/aws/getinstances", (req, res) => {
+  var params = {};
+  lightsail.getInstances(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else res.send(data); // successful response
+  });
+});
+
+app.get("/aws/getinstance/:instanceName", (req, res) => {
+  var params = {
+    instanceName: `${req.params.instanceName}`,
+  };
+  lightsail.getInstance(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else res.send(data); // successful response
+  });
+});
+
+app.get(
+  "/aws/:user/createinstance/:instanceName/:zone/:blueprint/:bundle",
+  (req, res) => {
+    var params = {
+      instanceNames: [`${req.params.instanceName}`],
+      availabilityZone: req.params.zone,
+      blueprintId: req.params.blueprint,
+      bundleId: req.params.bundle,
+    };
+    lightsail.createInstances(params, function (err, data) {
+      if (err) console.log(err, err.stack);
+      // an error occurred
+      else res.send(data); // successful response
+    });
+  }
+);
+
+app.get("/aws/getsnapshots", (req, res) => {
+  var params = {};
+  lightsail.getInstanceSnapshots(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else res.send(data); // successful response
+  });
 });
 
 //twilio routes

@@ -5,11 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import EventModal from "../components/social/EventModal";
 import AddEventModal from "../components/social/AddEventModal";
-import Login from "./Auth/Login";
 import UserContext from "../contexts/UserContext";
 import firebase from "../firebase";
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const SocialPage = (props) => {
@@ -32,7 +29,7 @@ const SocialPage = (props) => {
     if (user) {
       console.log(user.uid);
     }
-  }, [client, userID]);
+  }, [user]);
 
   useEffect(() => {
     if (eventDetails !== null) {
@@ -40,11 +37,35 @@ const SocialPage = (props) => {
     }
   }, [eventDetails]);
 
-  const getEvents = () => {
-    axios
+  const getEvents = async () => {
+    let tempArr = [];
+    if (!user) {
+      console.log("waiting to connect");
+    } else {
+      const eventsRef = await firebase.db
+        .collection("socialposts")
+        .where("userid", "==", `${user.uid}`)
+        .get();
+      eventsRef.forEach((doc) => {
+        console.log(doc.data());
+        tempArr.push(doc.data());
+      });
+
+      tempArr.forEach((event) => {
+        event.start = new Date(event.start);
+        if (event.end == null) {
+          event.end = new Date(event.start);
+        } else {
+          event.end = new Date(event.end);
+        }
+      });
+      setEventsArray(tempArr);
+    }
+
+    /* axios
       .get(
-        `https://socialcalendar123.herokuapp.com/${userID}/${client}/posts` ||
-          `http://localhost:85/${userID}/${client}/posts`
+        //`https://socialcalendar123.herokuapp.com/${userID}/${client}/posts` ||
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${userID}/${client}/posts`
       )
       .then((response) => {
         try {
@@ -69,7 +90,7 @@ const SocialPage = (props) => {
         } catch (error) {
           console.log(error);
         }
-      });
+      });*/
   };
 
   const handleClose = () => {
@@ -124,7 +145,7 @@ const SocialPage = (props) => {
             client={client}
             image={image}
             getEvents={getEvents}
-            userID={userID}
+            userID={user.uid}
           />
         )}
 
@@ -155,11 +176,11 @@ const SocialPage = (props) => {
             if (event.platform == "Facebook") {
               newStyle.backgroundColor = "#3b5998";
               newStyle.color = "white";
-            } else if (event.platform == "Instagram") {
+            } else if (event.platform === "Instagram") {
               newStyle.backgroundColor = "#F56040";
-            } else if (event.platform == "LinkedIn") {
+            } else if (event.platform === "LinkedIn") {
               newStyle.backgroundColor = "#0e76a8";
-            } else if (event.platform == "Twitter") {
+            } else if (event.platform === "Twitter") {
               newStyle.backgroundColor = "#00acee";
             }
 

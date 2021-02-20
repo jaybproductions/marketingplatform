@@ -18,6 +18,7 @@ import Websites from "./pages/Websites";
 import Messages from "./pages/Messages";
 import Billing from "./pages/Billing";
 import SingleConversation from "./pages/SingleConversation";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -70,6 +71,10 @@ function App() {
             <Route path="/message/:contact">
               {" "}
               <Header title="Conversation" component={<SingleConversation />} />
+            </Route>
+            <Route path="/checkout/:packageNum">
+              {" "}
+              <Header title="Checkout" component={<Checkout />} />
             </Route>
           </Switch>
         </div>

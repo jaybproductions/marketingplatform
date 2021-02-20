@@ -5,6 +5,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const AWS = require("aws-sdk");
+const multer = require("multer");
+const { v4: uuidv4 } = require("uuid");
+const { format } = require("util");
+const multerS3 = require("multer-s3");
+const fileMiddleware = require("express-multipart-file-parser");
 
 require("dotenv").config();
 //initialize stripe module
@@ -16,13 +21,16 @@ const stripe = require("stripe")(
 const app = express();
 
 //middlewares
+app.use(fileMiddleware);
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
+const serviceAccount = require(functions.config().fb.serviceaccountpath);
 
 //initialize admin sdk
 admin.initializeApp({
@@ -32,8 +40,8 @@ admin.initializeApp({
 const db = admin.firestore();
 
 //initialize twilio client
-const accountSid = "AC612f17d3dac16ff9ae8aeaae1bfebe94";
-const authToken = "9bbfbc1fb1b4a88f483ef3da731571f9";
+const accountSid = functions.config().twilio.accountsid;
+const authToken = functions.config().twilio.authtoken;
 const client = require("twilio")(accountSid, authToken);
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
@@ -45,6 +53,27 @@ const lightsail = new AWS.Lightsail({
   accessKeyId: AWS_ACCESS_KEY,
   secretAccessKey: AWS_SECRET_KEY,
   region: "us-east-1",
+});
+
+//Initialize AWS SDK for S3
+const s3 = new AWS.S3({
+  accessKeyId: functions.config().aws.access,
+  secretAccessKey: functions.config().aws.secret,
+  region: "us-east-1",
+});
+
+const uploadS3 = multer({
+  storage: multerS3({
+    s3: s3,
+    acl: "public-read",
+    bucket: "socialcalendarbtwg",
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: (req, file, cb) => {
+      cb(null, Date.now().toString() + "-" + file.originalname);
+    },
+  }),
 });
 
 //home route
@@ -167,6 +196,81 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .retrieveSource(req.params.customerId, req.params.cardId, {})
     .then((card) => res.send(card))
     .catch((error) => console.error(error));
+});
+
+//S3 Routes
+
+// get posts
+app.get("/:userid/:clientid/posts", (req, res) => {
+  (async () => {
+    try {
+      let query = db.collection("socialposts");
+      let response = [];
+      await query.get().then((querySnapshot) => {
+        let docs = querySnapshot.docs;
+        for (let doc of docs) {
+          if (doc.data().id === req.params.clientid) {
+            const selectedItem = {
+              id: doc.id,
+              posts: doc.data().posts,
+              clientid: doc.data().clientid,
+            };
+            response.push(selectedItem);
+          }
+        }
+      });
+      return res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send(error);
+    }
+  })();
+});
+
+// update
+app.put("/:userid/add", (req, res) => {
+  (async () => {
+    console.log(req.body.post);
+    let parsedData = JSON.parse(req.body.post);
+
+    console.log(req.files[0]);
+    s3.upload(
+      {
+        Body: req.files[0].buffer,
+        ACL: "public-read",
+        Key:
+          Date.now() +
+          "-" +
+          req.params.userid +
+          "-" +
+          req.files[0].originalname,
+        Bucket: "socialcalendarbtwg",
+        Metadata: {},
+      },
+      async (err, data) => {
+        //console.log(err, data);
+        console.log(data.Location);
+        try {
+          const document = db.collection("socialposts").doc();
+          await document.set({
+            userid: req.params.userid,
+            id: parsedData.id,
+            imageUrl: data.Location,
+            start: parsedData.start,
+            end: parsedData.end,
+            title: parsedData.title,
+            hashtags: parsedData.hashtags,
+            platform: parsedData.platform,
+            description: parsedData.description,
+          });
+          return res.status(200).send();
+        } catch (error) {
+          console.log(error);
+          return res.status(500).send(error + "This is whats broken");
+        }
+      }
+    );
+  })();
 });
 
 //new user route

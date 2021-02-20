@@ -44,12 +44,16 @@ const SendMessageSingle = ({ number, userNum }) => {
         const contactRef = await firebase.db.collection("contacts").get();
 
         const contactData = contactRef.forEach((contact) => {
-          if (number === contact.data().phone && contact.id === user.uid) {
+          if (
+            number === contact.data().phone &&
+            contact.data().user === user.uid
+          ) {
             console.log("contact exists");
             contactExists = true;
           }
         });
         if (!contactExists) {
+          console.log("contact doesnt exit");
           firebase.db.collection("contacts").doc().set({
             name: "",
             phone: number,

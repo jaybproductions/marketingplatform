@@ -129,6 +129,12 @@ app.get(
   }
 );
 
+app.get("/aws/bundles", (req, res) => {
+  lightsail.getBundles((err, data) => {
+    res.send(data);
+  });
+});
+
 app.get("/aws/getsnapshots", (req, res) => {
   var params = {};
   lightsail.getInstanceSnapshots(params, function (err, data) {
@@ -214,7 +220,17 @@ app.post("/checkout/:packageNum", async (req, res) => {
   let status;
 
   try {
-    const { product, token, email, name, password } = req.body;
+    const {
+      product,
+      token,
+      email,
+      name,
+      password,
+      blueprintId,
+      bundleId,
+      availabilityZone,
+      instanceName,
+    } = req.body;
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
@@ -257,6 +273,39 @@ app.post("/checkout/:packageNum", async (req, res) => {
           disabled: false,
         })
         .then((user) => {
+          var params = {
+            instanceNames: [`${user.uid}-wordpress`],
+            availabilityZone: availabilityZone,
+            blueprintId: blueprintId,
+            bundleId: bundleId,
+          };
+          //TODO Static IP address creation not working move into new route to check for bool
+          lightsail.allocateStaticIp(
+            {
+              staticIpName: `StaticIp-${user.uid}`,
+            },
+            (err, data) => {
+              console.log(data);
+            }
+          );
+
+          lightsail.createInstances(params, function (err, data) {
+            if (err) console.log(err, err.stack);
+            // an error occurred
+            else {
+              console.log(data);
+              //This is what i need to move
+              /*  var ipParams = {
+                instanceName: `${user.uid}-wordpress`,
+                staticIpName: `StaticIp-${user.uid}`,
+              };
+              lightsail.attachStaticIp(ipParams, function (err, data) {
+                if (err) console.log(err, err.stack);
+                // an error occurred
+                else console.log(data); // successful response
+              }); */
+            } // successful response
+          });
           // See the UserRecord reference doc for the contents of userRecord.
           console.log("Successfully created new user:", user.uid);
           const newUser = {
@@ -272,6 +321,15 @@ app.post("/checkout/:packageNum", async (req, res) => {
               monthlyAmount: product.price,
               stripeCustomerID: customer.id,
             },
+            awsInstances: [
+              {
+                instanceName: `${user.uid}-wordpress`,
+                availabilityZone: availabilityZone,
+                blueprintId: blueprintId,
+                bundleId: bundleId,
+                staticIpAllocated: false,
+              },
+            ],
           };
           db.collection("users").doc(user.uid).set(newUser);
           console.log("User added to database");
@@ -361,28 +419,6 @@ app.put("/:userid/add", (req, res) => {
       }
     );
   })();
-});
-
-//new user route
-exports.addUser = functions.auth.user().onCreate((user) => {
-  const newUser = {
-    id: user.uid,
-    name: user.displayName,
-    email: user.email,
-    isAdmin: false,
-    created: Date.now(),
-    websites: [],
-    twilioNum: "",
-    subscriptionInfo: {
-      type: "",
-      monthlyAmount: 0,
-      due: "",
-      stripeCustomerID: "",
-      stripeSubscriptionID: "",
-    },
-  };
-  db.collection("users").doc(user.uid).set(newUser);
-  console.log("User added to database");
 });
 
 exports.app = functions.https.onRequest(app);

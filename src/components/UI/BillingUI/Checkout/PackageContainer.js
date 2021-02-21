@@ -75,6 +75,8 @@ const PackageContainer = ({ selectedPackage, setSelectedPackage }) => {
               packageNum="1"
               selectedPackage={selectedPackage}
               setSelectedPackage={setSelectedPackage}
+              blueprintId="wordpress"
+              bundleId="nano_2_0"
             />
           </Paper>
         </Grid>
@@ -100,6 +102,8 @@ const PackageContainer = ({ selectedPackage, setSelectedPackage }) => {
               packageNum="2"
               selectedPackage={selectedPackage}
               setSelectedPackage={setSelectedPackage}
+              blueprintId="wordpress"
+              bundleId="small_2_0"
             />
           </Paper>
         </Grid>
@@ -125,6 +129,8 @@ const PackageContainer = ({ selectedPackage, setSelectedPackage }) => {
               packageNum="3"
               selectedPackage={selectedPackage}
               setSelectedPackage={setSelectedPackage}
+              blueprintId="wordpress"
+              bundleId="medium_2_0"
             />
           </Paper>
         </Grid>

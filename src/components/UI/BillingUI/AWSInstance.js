@@ -22,7 +22,7 @@ const AWSInstance = () => {
 
       console.log(instances);
       const response = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${data.awsInfo.instance}`
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${data.awsInstances[0].instanceName}`
       );
       const instanceInfo = response.data;
       console.log(instanceInfo);

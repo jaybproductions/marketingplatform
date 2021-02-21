@@ -23,6 +23,10 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
         name: name,
         email: email,
         password: password,
+        instanceName: "",
+        bundleId: selectedPackage.bundleId,
+        blueprintId: selectedPackage.blueprintId,
+        availabilityZone: "us-east-1a",
       }
     );
 

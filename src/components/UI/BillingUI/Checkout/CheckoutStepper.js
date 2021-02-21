@@ -42,15 +42,18 @@ export default function CheckoutStepper() {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(1);
   const steps = getSteps();
 
   useEffect(() => {
     console.log(name);
   }, [name]);
   useEffect(() => {
+    if (!selectedPackage) {
+      return;
+    }
     console.log(selectedPackage.number);
-  }, [selectedPackage]);
+  }, [selectedPackage.number]);
 
   function getStepContent(step) {
     switch (step) {

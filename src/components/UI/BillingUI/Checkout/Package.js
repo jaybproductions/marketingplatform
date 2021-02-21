@@ -29,6 +29,9 @@ const Package = ({
   selectedPackage,
   setSelectedPackage,
   packageNum,
+  blueprintId,
+  bundleId,
+  availabilityZone,
 }) => {
   const classes = useStyles();
   return (
@@ -60,7 +63,12 @@ const Package = ({
         <Button
           size="small"
           onClick={(e) =>
-            setSelectedPackage({ number: packageNum, price: price })
+            setSelectedPackage({
+              number: packageNum,
+              price: price,
+              blueprintId: blueprintId,
+              bundleId: bundleId,
+            })
           }
         >
           {buttonText}

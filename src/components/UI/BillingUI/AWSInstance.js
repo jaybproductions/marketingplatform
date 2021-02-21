@@ -8,7 +8,6 @@ import NewInstanceModal from "./NewInstanceModal";
 const AWSInstance = () => {
   const { user } = useContext(UserContext);
   const [instances, setInstances] = useState(null);
-  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     getInstances();
@@ -31,40 +30,29 @@ const AWSInstance = () => {
     }
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   return (
     <div className="instance" style={{ paddingTop: "10px" }}>
       {instances && (
         <>
-          <div style={{ padding: "10px" }}>
-            <h4>Your Current Instances</h4>
-          </div>
+          <div style={{ padding: "10px" }}></div>
           <Card>
             <div
               className="instance-data"
-              style={{ padding: "10px", height: "100px" }}
+              style={{ padding: "10px", height: "150px" }}
             >
-              {instances.name} <br />
-              Public IP Address: {instances.publicIpAddress} -{" "}
-              {instances.location.regionName} <br /> Current Status:{" "}
-              {instances.state.name}
-            </div>
-            <div style={{ paddingBottom: "10px" }}>
-              {" "}
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleClickOpen}
-              >
-                Buy New Instance
-              </Button>
+              <center>
+                <h5>{instances.name}</h5>
+              </center>{" "}
+              <br />
+              <b>Public IP Address:</b> {instances.publicIpAddress}
+              <br />
+              <b>Region: </b>
+              {instances.location.regionName} <br />
+              <b> Current Status:</b> {instances.state.name}
             </div>
           </Card>
         </>
       )}
-      <NewInstanceModal open={open} setOpen={setOpen} />
     </div>
   );
 };

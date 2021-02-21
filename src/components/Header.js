@@ -24,6 +24,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import ChatBubbleOutline from "@material-ui/icons/ChatBubbleOutline";
 import PublicIcon from "@material-ui/icons/Public";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import StorageIcon from "@material-ui/icons/Storage";
 
 const drawerWidth = 240;
 
@@ -208,6 +209,11 @@ const Header = (props) => {
               name: "Messages",
               link: "/messages",
               icon: <ChatBubbleOutline />,
+            },
+            {
+              name: "Servers",
+              link: "/servers",
+              icon: <StorageIcon />,
             },
             {
               name: "Billing",

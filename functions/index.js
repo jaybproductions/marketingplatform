@@ -91,6 +91,15 @@ app.get("/aws/getinstances", (req, res) => {
   });
 });
 
+app.get("/aws/getdomains", (req, res) => {
+  var params = {};
+  lightsail.getDomains(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else res.send(data); // successful response
+  });
+});
+
 app.get("/aws/getinstance/:instanceName", (req, res) => {
   var params = {
     instanceName: `${req.params.instanceName}`,
@@ -196,6 +205,62 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .retrieveSource(req.params.customerId, req.params.cardId, {})
     .then((card) => res.send(card))
     .catch((error) => console.error(error));
+});
+
+app.post("/checkout", async (req, res) => {
+  console.log(req.body);
+
+  let error;
+  let status;
+
+  try {
+    const { product, token } = req.body;
+
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id,
+    });
+
+    const idempotency_key = uuidv4();
+    /*const charge = await stripe.charges.create(
+      {
+        amount: product.price * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `Purchased the ${product.name}`,
+        shipping: {
+          name: token.card.name,
+          address: {
+            line1: token.card.address_line1,
+            line2: token.card.address_line2,
+            city: token.card.address_city,
+            country: token.card.address_country,
+            postal_code: token.card.address_zip,
+          },
+        },
+      },
+      {
+        idempotency_key,
+      }
+    ); */
+    stripe.subscriptions.create({
+      customer: customer.id,
+      items: [{ price: "price_1ILsULIx8kJ3JcBGvMLg6RRE" }],
+      add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
+    });
+    //console.log("Charge: ", { charge });
+    status = "success";
+  } catch (error) {
+    console.error("Error: ", error);
+    status = "failure";
+  }
+
+  //TODO use admin sdk to create a user with information provided
+  //TODO make sure user is added into db correctly
+  //TODO add  customer_id to correct user db
+
+  res.json({ error, status });
 });
 
 //S3 Routes

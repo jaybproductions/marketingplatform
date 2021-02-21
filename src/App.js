@@ -19,6 +19,7 @@ import Messages from "./pages/Messages";
 import Billing from "./pages/Billing";
 import SingleConversation from "./pages/SingleConversation";
 import Checkout from "./pages/Checkout";
+import Servers from "./pages/Servers";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -75,6 +76,10 @@ function App() {
             <Route path="/checkout/:packageNum">
               {" "}
               <Header title="Checkout" component={<Checkout />} />
+            </Route>
+            <Route path="/servers">
+              {" "}
+              <Header title="Servers" component={<Servers />} />
             </Route>
           </Switch>
         </div>

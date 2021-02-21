@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -32,26 +32,42 @@ function getSteps() {
   ];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <Step1 />;
-    case 1:
-      return <Step2 />;
-    case 2:
-      return <Step3 />;
-    case 3:
-      return <Step4 />;
-    default:
-      return "Unknown step";
-  }
-}
-
 export default function CheckoutStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const steps = getSteps();
+
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return (
+          <Step1
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
+        );
+      case 1:
+        return <Step2 />;
+      case 2:
+        return <Step3 />;
+      case 3:
+        return <Step4 />;
+      default:
+        return "Unknown step";
+    }
+  }
 
   const isStepOptional = (step) => {
     return step === 5;

@@ -144,6 +144,20 @@ app.get("/aws/getsnapshots", (req, res) => {
   });
 });
 
+app.post("/aws/allocateip", (req, res) => {
+  const { instanceName, staticIpName } = req.body;
+
+  var ipParams = {
+    instanceName: instanceName,
+    staticIpName: staticIpName,
+  };
+  lightsail.attachStaticIp(ipParams, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else res.send(data); // successful response
+  });
+});
+
 //twilio routes
 app.post("/twilio", (req, res) => {
   const { phone, message, from } = req.body;
@@ -218,6 +232,8 @@ app.post("/checkout/:packageNum", async (req, res) => {
   const { packageNum } = req.params;
   let error;
   let status;
+  let sourceInfo;
+  let customerId;
 
   try {
     const {
@@ -231,34 +247,66 @@ app.post("/checkout/:packageNum", async (req, res) => {
       availabilityZone,
       instanceName,
     } = req.body;
-    const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id,
-    });
 
-    if (packageNum === "1") {
-      stripe.subscriptions.create({
-        customer: customer.id,
-        items: [{ price: "price_1ILsULIx8kJ3JcBGvMLg6RRE" }],
-        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
-      });
-    } else if (packageNum === "2") {
-      stripe.subscriptions.create({
-        customer: customer.id,
-        items: [{ price: "price_1IN8iFIx8kJ3JcBGR6KUfUOf" }],
-        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
-      });
-    } else if (packageNum === "3") {
-      stripe.subscriptions.create({
-        customer: customer.id,
-        items: [{ price: "price_1IN8lkIx8kJ3JcBGCxd8nRmm" }],
-        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
-      });
-    }
-
-    //console.log("Charge: ", { charge });
+    const source = await stripe.sources.create(
+      {
+        type: "card",
+        currency: "usd",
+        token: token.id,
+        owner: {
+          name: token.card.name,
+          address: {
+            line1: token.card.address_line1,
+            line2: token.card.address_line2,
+            city: token.card.address_city,
+            country: token.card.address_country,
+            postal_code: token.card.address_zip,
+          },
+        },
+      },
+      (err, source) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(source.id);
+          stripe.customers.create(
+            {
+              email: token.email,
+              source: source.id,
+            },
+            (err, customer) => {
+              customerId = customer.id;
+              if (packageNum === "1") {
+                stripe.subscriptions.create({
+                  customer: customer.id,
+                  items: [{ price: "price_1ILsULIx8kJ3JcBGvMLg6RRE" }],
+                  add_invoice_items: [
+                    { price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" },
+                  ],
+                });
+              } else if (packageNum === "2") {
+                stripe.subscriptions.create({
+                  customer: customer.id,
+                  items: [{ price: "price_1IN8iFIx8kJ3JcBGR6KUfUOf" }],
+                  add_invoice_items: [
+                    { price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" },
+                  ],
+                });
+              } else if (packageNum === "3") {
+                stripe.subscriptions.create({
+                  customer: customer.id,
+                  items: [{ price: "price_1IN8lkIx8kJ3JcBGCxd8nRmm" }],
+                  add_invoice_items: [
+                    { price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" },
+                  ],
+                });
+              }
+            }
+          );
+        }
+      }
+    );
     status = "success";
-
     //TODO create aws instance based on information provided
     //TODO make sure aws information is added correctly into db
     //Account for future ability to add multiple instances
@@ -294,16 +342,6 @@ app.post("/checkout/:packageNum", async (req, res) => {
             // an error occurred
             else {
               console.log(data);
-              //This is what i need to move
-              /*  var ipParams = {
-                instanceName: `${user.uid}-wordpress`,
-                staticIpName: `StaticIp-${user.uid}`,
-              };
-              lightsail.attachStaticIp(ipParams, function (err, data) {
-                if (err) console.log(err, err.stack);
-                // an error occurred
-                else console.log(data); // successful response
-              }); */
             } // successful response
           });
           // See the UserRecord reference doc for the contents of userRecord.
@@ -319,7 +357,7 @@ app.post("/checkout/:packageNum", async (req, res) => {
             subscriptionInfo: {
               type: product.name,
               monthlyAmount: product.price,
-              stripeCustomerID: customer.id,
+              stripeCustomerID: customerId,
             },
             awsInstances: [
               {

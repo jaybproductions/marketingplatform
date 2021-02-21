@@ -5,10 +5,9 @@ import { Card, Button } from "@material-ui/core";
 import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";
 
-const AWSInstance = () => {
+const AWSInstance = ({ instance, index, allInstances }) => {
   const { user } = useContext(UserContext);
-  const [instances, setInstances] = useState(null);
-
+  const [currentInstance, setCurrentInstance] = useState(null);
   useEffect(() => {
     getInstances();
   }, [user]);
@@ -16,23 +15,55 @@ const AWSInstance = () => {
     if (!user) {
       console.log("waiting to connect");
     } else {
+      let tempArr = [];
+      let tempAll = allInstances;
       const docRef = await firebase.db.collection("users").doc(user.uid).get();
       const data = docRef.data();
-      console.log(data);
-
-      console.log(instances);
+      tempArr.push(instance);
       const response = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${data.awsInstances[0].instanceName}`
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${instance.instanceName}`
       );
       const instanceInfo = response.data;
-      console.log(instanceInfo);
-      setInstances(instanceInfo.instance);
+      setCurrentInstance(instanceInfo.instance);
+      console.log(
+        instanceInfo.instance.state.name,
+        instance.staticIpAllocated,
+        instanceInfo.instance.isStaticIp
+      );
+      if (
+        instanceInfo.instance.state.name === "running" &&
+        instance.staticIpAllocated === false &&
+        instanceInfo.instance.isStaticIp === false
+      ) {
+        const allocateIPResponse = await axios.post(
+          "http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/allocateip",
+          {
+            instanceName: instanceInfo.instance.name,
+            staticIpName: `StaticIp-${user.uid}`,
+          }
+        );
+        console.log(allocateIPResponse.status);
+        const updateRef = firebase.db.collection("users").doc(user.uid);
+        const objIndex = tempArr.findIndex(
+          (obj) => obj.staticIpAllocated === false
+        );
+        tempArr[objIndex].staticIpAllocated = true;
+        const objToRemoveIndex = tempAll.findIndex(
+          (obj) => obj.instanceName === instance.instanceName
+        );
+
+        tempAll.splice(objToRemoveIndex, 1, ...tempArr);
+
+        updateRef.update({
+          awsInstances: tempAll,
+        });
+      }
     }
   };
 
   return (
     <div className="instance" style={{ paddingTop: "10px" }}>
-      {instances && (
+      {instance && (
         <>
           <div style={{ padding: "10px" }}></div>
           <Card>
@@ -41,14 +72,19 @@ const AWSInstance = () => {
               style={{ padding: "10px", height: "150px" }}
             >
               <center>
-                <h5>{instances.name}</h5>
+                <h5>{instance.instanceName}</h5>
               </center>{" "}
               <br />
-              <b>Public IP Address:</b> {instances.publicIpAddress}
+              <b>Public IP Address:</b>{" "}
+              {currentInstance && <>{currentInstance.publicIpAddress}</>}
               <br />
               <b>Region: </b>
-              {instances.location.regionName} <br />
-              <b> Current Status:</b> {instances.state.name}
+              {instance.availabilityZone} <br />
+              {currentInstance && (
+                <>
+                  <b> Current Status:</b> {currentInstance.state.name}
+                </>
+              )}
             </div>
           </Card>
         </>

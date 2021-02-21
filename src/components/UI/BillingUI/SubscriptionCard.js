@@ -50,14 +50,14 @@ const SubscriptionCard = ({ customerInfo }) => {
       );
       console.log(response.data);
       setProduct(response.data);
-      const cardID = customerInfo.subscriptions.data[0].default_source;
+      const cardID = customerInfo.default_source;
       const customerID = customerInfo.id.toString();
       console.log(customerID);
       const cardResponse = await axios.get(
         `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
       );
-      console.log(cardResponse);
-      setCardInfo(cardResponse.data);
+      console.log(cardResponse.data);
+      setCardInfo(cardResponse.data.card);
     }
   };
 

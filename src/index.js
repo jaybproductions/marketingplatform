@@ -5,11 +5,22 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+const theme = createMuiTheme({
+  palette: {
+    type: "light",
+  },
+});
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Router>
+      <App />
+    </Router>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

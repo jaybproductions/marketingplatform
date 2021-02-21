@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
 const admin = require("firebase-admin");
-const serviceAccount = require(functions.config().fb.serviceaccountpath);
+const serviceAccount = require("./marketingplatform-3b5c7-firebase-adminsdk-l8n9s-5457932180.json");
 
 //initialize admin sdk
 admin.initializeApp({
@@ -91,6 +91,7 @@ app.get("/aws/getinstances", (req, res) => {
   });
 });
 
+//Not in use...
 app.get("/aws/getdomains", (req, res) => {
   var params = {};
   lightsail.getDomains(params, function (err, data) {
@@ -207,58 +208,82 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
-app.post("/checkout", async (req, res) => {
-  console.log(req.body);
-
+app.post("/checkout/:packageNum", async (req, res) => {
+  const { packageNum } = req.params;
   let error;
   let status;
 
   try {
-    const { product, token } = req.body;
-
+    const { product, token, email, name, password } = req.body;
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
     });
 
-    const idempotency_key = uuidv4();
-    /*const charge = await stripe.charges.create(
-      {
-        amount: product.price * 100,
-        currency: "usd",
+    if (packageNum === "1") {
+      stripe.subscriptions.create({
         customer: customer.id,
-        receipt_email: token.email,
-        description: `Purchased the ${product.name}`,
-        shipping: {
-          name: token.card.name,
-          address: {
-            line1: token.card.address_line1,
-            line2: token.card.address_line2,
-            city: token.card.address_city,
-            country: token.card.address_country,
-            postal_code: token.card.address_zip,
-          },
-        },
-      },
-      {
-        idempotency_key,
-      }
-    ); */
-    stripe.subscriptions.create({
-      customer: customer.id,
-      items: [{ price: "price_1ILsULIx8kJ3JcBGvMLg6RRE" }],
-      add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
-    });
+        items: [{ price: "price_1ILsULIx8kJ3JcBGvMLg6RRE" }],
+        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
+      });
+    } else if (packageNum === "2") {
+      stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{ price: "price_1IN8iFIx8kJ3JcBGR6KUfUOf" }],
+        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
+      });
+    } else if (packageNum === "3") {
+      stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{ price: "price_1IN8lkIx8kJ3JcBGCxd8nRmm" }],
+        add_invoice_items: [{ price: "price_1ILsULIx8kJ3JcBGs8T5sxCH" }],
+      });
+    }
+
     //console.log("Charge: ", { charge });
     status = "success";
+
+    //TODO create aws instance based on information provided
+    //TODO make sure aws information is added correctly into db
+    //Account for future ability to add multiple instances
+    if (status === "success") {
+      admin
+        .auth()
+        .createUser({
+          email: email,
+          emailVerified: false,
+          password: password,
+          displayName: name,
+          disabled: false,
+        })
+        .then((user) => {
+          // See the UserRecord reference doc for the contents of userRecord.
+          console.log("Successfully created new user:", user.uid);
+          const newUser = {
+            id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            isAdmin: false,
+            created: Date.now(),
+            websites: [],
+            twilioNum: "",
+            subscriptionInfo: {
+              type: product.name,
+              monthlyAmount: product.price,
+              stripeCustomerID: customer.id,
+            },
+          };
+          db.collection("users").doc(user.uid).set(newUser);
+          console.log("User added to database");
+        })
+        .catch((error) => {
+          console.log("Error creating new user:", error);
+        });
+    }
   } catch (error) {
     console.error("Error: ", error);
     status = "failure";
   }
-
-  //TODO use admin sdk to create a user with information provided
-  //TODO make sure user is added into db correctly
-  //TODO add  customer_id to correct user db
 
   res.json({ error, status });
 });

@@ -39,8 +39,8 @@ const PricingContainer = () => {
               title="Basic Package"
               features={basicFeatures}
               price="$10"
-              link=""
-              buttonText="Buy Now"
+              link="/checkout/1"
+              buttonText="Get Started"
             />
           </Paper>
         </Grid>
@@ -49,9 +49,9 @@ const PricingContainer = () => {
             <PricingTable
               title="Intermediate Package"
               features={basicFeatures}
-              price="$10"
-              link=""
-              buttonText="Buy Now"
+              price="$25"
+              link="/checkout/2"
+              buttonText="Get Started"
             />
           </Paper>
         </Grid>
@@ -61,8 +61,8 @@ const PricingContainer = () => {
               title="Custom Package"
               features={basicFeatures}
               price="Contact for more details."
-              link=""
-              buttonText="Contact Us"
+              link="/checkout/3"
+              buttonText="Get Started"
             />
           </Paper>
         </Grid>

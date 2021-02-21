@@ -226,10 +226,7 @@ const Header = (props) => {
               icon: <SettingsIcon />,
             },
           ].map((item, index) => (
-            <Link
-              to={item.link}
-              style={{ textDecoration: "none", color: "black" }}
-            >
+            <Link to={item.link} style={{ textDecoration: "none" }}>
               <ListItem button key={item.name}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
 

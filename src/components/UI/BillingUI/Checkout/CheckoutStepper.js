@@ -9,6 +9,9 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
+import firebase from "../../../../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,11 +42,15 @@ export default function CheckoutStepper() {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
   const steps = getSteps();
 
   useEffect(() => {
     console.log(name);
   }, [name]);
+  useEffect(() => {
+    console.log(selectedPackage.number);
+  }, [selectedPackage]);
 
   function getStepContent(step) {
     switch (step) {
@@ -59,11 +66,23 @@ export default function CheckoutStepper() {
           />
         );
       case 1:
-        return <Step2 />;
+        return (
+          <Step2
+            selectedPackage={selectedPackage}
+            setSelectedPackage={setSelectedPackage}
+          />
+        );
       case 2:
         return <Step3 />;
       case 3:
-        return <Step4 />;
+        return (
+          <Step4
+            selectedPackage={selectedPackage}
+            name={name}
+            email={email}
+            password={password}
+          />
+        );
       default:
         return "Unknown step";
     }
@@ -77,11 +96,27 @@ export default function CheckoutStepper() {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (!email || !name || !password) {
+      toast.error("Some required info is missing...");
+      return;
+    }
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
+    }
+    if (activeStep === 0) {
+      const docRef = await firebase.db.collection("leads").doc(email).get();
+      if (!docRef.exists) {
+        firebase.db.collection("leads").doc(email).set({
+          name: name,
+          email: email,
+        });
+      } else {
+        console.log("this lead already exists");
+      }
+      console.log("step 1 submit");
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -90,21 +125,6 @@ export default function CheckoutStepper() {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const handleReset = () => {
@@ -156,17 +176,6 @@ export default function CheckoutStepper() {
               >
                 Back
               </Button>
-              {isStepOptional(activeStep) && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSkip}
-                  className={classes.button}
-                >
-                  Skip
-                </Button>
-              )}
-
               <Button
                 variant="contained"
                 color="primary"
@@ -179,6 +188,7 @@ export default function CheckoutStepper() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

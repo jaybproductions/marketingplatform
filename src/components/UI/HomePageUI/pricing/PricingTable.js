@@ -5,6 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -39,7 +40,7 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
           </Typography>
           <Typography variant="span" component="h2">
             <div style={{ margin: "auto", alignItems: "left" }}>
-              <ul style={{textAlign: 'left'}}>
+              <ul style={{ textAlign: "left" }}>
                 {features.map((feature) => (
                   <>
                     <li style={{ fontSize: "16px" }}>{feature}</li>
@@ -57,7 +58,9 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">{buttonText}</Button>
+          <Link to={link} style={{ textDecoration: "none" }}>
+            <Button size="small">{buttonText}</Button>
+          </Link>
         </CardActions>
       </Card>
     </div>

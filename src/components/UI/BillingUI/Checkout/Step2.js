@@ -61,7 +61,8 @@ const Step2 = ({ selectedPackage, setSelectedPackage }) => {
                 If you do not have a domain, you will still be able to purchase
                 a server, but you will need to purchase a domain from a
                 registrar (e. Godaddy or Google Domains) once you are ready to
-                take your site live.
+                take your site live. Please see FAQ's for information on how to
+                point your domain to the server.
               </p>
             </div>
           </div>

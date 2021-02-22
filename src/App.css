@@ -11,8 +11,12 @@
   padding: 10px;
 }
 
+.package-table a:hover {
+  cursor: pointer;
+}
+
 .home {
-  padding: 20px;
+  padding: 0px;
   text-align: center;
 }
 

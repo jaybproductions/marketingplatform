@@ -73,7 +73,7 @@ function App() {
               {" "}
               <Header title="Conversation" component={<SingleConversation />} />
             </Route>
-            <Route path="/checkout/:packageNum">
+            <Route path="/checkout">
               {" "}
               <Header title="Checkout" component={<Checkout />} />
             </Route>

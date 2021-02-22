@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
@@ -25,7 +25,9 @@ const Login = (props) => {
 
     try {
       await firebase.login(email, password);
+
       console.log("You are now logged in!");
+      console.log(props);
       props.history.push("/home");
     } catch (err) {
       console.error("authentication error", err);
@@ -35,7 +37,7 @@ const Login = (props) => {
   }
 
   return (
-    <div className="login" style={{textAlign: 'center'}}>
+    <div className="login" style={{ textAlign: "center" }}>
       <h1 style={{ paddingTop: "10px", textAlign: "center" }}>
         QR Store Login
       </h1>
@@ -74,4 +76,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

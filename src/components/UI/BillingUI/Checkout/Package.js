@@ -36,7 +36,7 @@ const Package = ({
   const classes = useStyles();
   return (
     <>
-      <div className="pricing-table">
+      <div className="package-table">
         <Typography
           className={classes.title}
           color="textSecondary"
@@ -57,11 +57,13 @@ const Package = ({
         </Typography>
         <Typography className={classes.pos} color="textSecondary"></Typography>
         <Typography variant="body2" component="p">
-          {price.toString()}
+          {"$" + price.toString() + " per month"}
         </Typography>
 
         <Button
-          size="small"
+          size="md"
+          color="primary"
+          variant="contained"
           onClick={(e) =>
             setSelectedPackage({
               number: packageNum,
@@ -71,7 +73,7 @@ const Package = ({
             })
           }
         >
-          {buttonText}
+          Select
         </Button>
       </div>
     </>

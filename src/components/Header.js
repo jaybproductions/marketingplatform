@@ -25,6 +25,8 @@ import ChatBubbleOutline from "@material-ui/icons/ChatBubbleOutline";
 import PublicIcon from "@material-ui/icons/Public";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import StorageIcon from "@material-ui/icons/Storage";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AccountIcon from "./UI/AccountIcon";
 
 const drawerWidth = 240;
 
@@ -65,14 +67,14 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    padding: theme.spacing(0, 1),
+    padding: theme.spacing(0, 0),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -88,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
   userInfo: {
     textAlign: "right",
+    width: "100%",
   },
 }));
 
@@ -135,7 +138,7 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{ width: "90%" }}>
+          <Typography variant="h6" noWrap style={{ width: "70%" }}>
             <div className="title">
               <h3>{props.title}</h3>
             </div>
@@ -145,28 +148,17 @@ const Header = (props) => {
             <div className={classes.userInfo}>
               {user ? (
                 <>
-                  <p>Hello, {user.displayName}</p>
-                  <button
-                    type="button"
-                    className="btn btn-dark"
-                    onClick={LogoutUser}
-                  >
-                    Logout
-                  </button>{" "}
+                  <AccountIcon user={user} LogoutUser={LogoutUser} />{" "}
                 </>
               ) : (
                 <>
                   {" "}
-                  <Link to={"/login"}>
-                    <button type="button" className="btn btn-dark">
-                      Login
+                  <Link to={"/checkout"} style={{ color: "white" }}>
+                    <button type="button" className="btn btn-warning">
+                      Get Started
                     </button>{" "}
                   </Link>
-                  <Link to={"/signup"}>
-                    <button type="button" className="btn btn-dark">
-                      Sign Up
-                    </button>{" "}
-                  </Link>
+                  <AccountIcon />
                 </>
               )}
             </div>

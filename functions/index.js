@@ -228,8 +228,7 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
-app.post("/checkout/:packageNum", async (req, res) => {
-  const { packageNum } = req.params;
+app.post("/checkout", async (req, res) => {
   let error;
   let status;
   let sourceInfo;
@@ -246,6 +245,7 @@ app.post("/checkout/:packageNum", async (req, res) => {
       bundleId,
       availabilityZone,
       instanceName,
+      packageNum,
     } = req.body;
 
     const source = await stripe.sources.create(

@@ -8,7 +8,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   return (
     <div className="home">
-      {user ? (
+      {!user ? (
         <>
           {" "}
           <HeroSection />
@@ -25,7 +25,7 @@ const Home = () => {
           <ul style={{ alignItems: "center" }}>
             <li>Social Media Posts</li>
             <li>Website</li>
-            <li>Google my business</li>
+            <li>Your Server Instances</li>
             <li>Something else</li>
           </ul>
         </div>

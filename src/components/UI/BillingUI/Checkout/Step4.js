@@ -16,7 +16,7 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
 
   const handleToken = async (token, addresses) => {
     const response = await axios.post(
-      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/checkout/${selectedPackage.number}`,
+      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/checkout`,
       {
         token: token,
         product: product,
@@ -27,6 +27,7 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
         bundleId: selectedPackage.bundleId,
         blueprintId: selectedPackage.blueprintId,
         availabilityZone: "us-east-1a",
+        packageNum: selectedPackage.number,
       }
     );
 
@@ -35,7 +36,7 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
     if (status === "success") {
       toast.success("Your Payment has been made..");
     } else {
-      toast.error("There hass been an error.");
+      toast.error("There has been an error.");
     }
   };
   return (

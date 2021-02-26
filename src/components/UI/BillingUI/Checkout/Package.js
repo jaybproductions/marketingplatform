@@ -32,6 +32,7 @@ const Package = ({
   blueprintId,
   bundleId,
   availabilityZone,
+  type,
 }) => {
   const classes = useStyles();
   return (
@@ -60,21 +61,26 @@ const Package = ({
           {"$" + price.toString() + " per month"}
         </Typography>
 
-        <Button
-          size="md"
-          color="primary"
-          variant="contained"
-          onClick={(e) =>
-            setSelectedPackage({
-              number: packageNum,
-              price: price,
-              blueprintId: blueprintId,
-              bundleId: bundleId,
-            })
-          }
-        >
-          Select
-        </Button>
+        {type != "checkout" && (
+          <Button
+            size="md"
+            color="primary"
+            variant="contained"
+            onClick={(e) =>
+              setSelectedPackage({
+                number: packageNum,
+                price: price,
+                blueprintId: blueprintId,
+                bundleId: bundleId,
+                title: title,
+                features: features,
+                availabilityZone: availabilityZone,
+              })
+            }
+          >
+            Select
+          </Button>
+        )}
       </div>
     </>
   );

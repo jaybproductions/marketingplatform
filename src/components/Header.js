@@ -3,7 +3,7 @@ import firebase from "../firebase";
 import { withRouter, Link } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  active: {
+    backgroundColor: "primary !important",
   },
   hide: {
     display: "none",
@@ -219,9 +222,8 @@ const Header = (props) => {
             },
           ].map((item, index) => (
             <Link to={item.link} style={{ textDecoration: "none" }}>
-              <ListItem button key={item.name}>
+              <ListItem button key={item.name} activeClassName={classes.active}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-
                 <ListItemText primary={item.name} />
               </ListItem>
             </Link>

@@ -3,7 +3,8 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Package from "./Package";
+import { Card, CardContent } from "@material-ui/core";
 /*TODO have user signup using auth and make sure user is added to db before processing payment 
 to esnsure correct customer ID is added to db */
 
@@ -41,7 +42,20 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
   };
   return (
     <div className="step-4">
-      <h4>Finalize your account setup and pay...</h4>
+      <h4>Your Package Information</h4>
+      <Card style={{ paddingBottom: "10px" }}>
+        <CardContent>
+          <Package
+            packageNum={selectedPackage.number}
+            features={selectedPackage.features}
+            price={selectedPackage.price}
+            type="checkout"
+          />
+          +$25 Setup Fee <br />
+          Total: ${selectedPackage.price + 25}
+        </CardContent>
+      </Card>
+      <div style={{ padding: "10px" }} />
       <StripeCheckout
         stripeKey="pk_test_51ILfdTIx8kJ3JcBG3ugmbX7HlTbwfgZctbmjakQQ4bX4pMJhbbcRi51ackq1ufSre8xCuKXHkUT2SqLxyuGaE6CB00EE6vmY67"
         amount={product.price * 100}

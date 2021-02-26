@@ -95,6 +95,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
     width: "100%",
   },
+  selected: {
+    "&.Mui-selected": {
+      backgroundColor: "lightblue !important",
+      color: "white",
+      fontWeight: 600,
+    },
+  },
 }));
 
 const Header = (props) => {
@@ -113,6 +120,7 @@ const Header = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,6 +128,10 @@ const Header = (props) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
   };
 
   return (
@@ -222,7 +234,13 @@ const Header = (props) => {
             },
           ].map((item, index) => (
             <Link to={item.link} style={{ textDecoration: "none" }}>
-              <ListItem button key={item.name} activeClassName={classes.active}>
+              <ListItem
+                button
+                key={item.name}
+                selected={selectedIndex === index}
+                onClick={(event) => handleListItemClick(event, index)}
+                classes={{ selected: classes.selected }}
+              >
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItem>

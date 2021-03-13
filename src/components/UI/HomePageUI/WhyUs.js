@@ -63,37 +63,46 @@ export default function WhyUs() {
   };
 
   return (
-    <div className="why-us">
-      <div className="container">
-        <Paper>
-          <div className="heading">
-            <h2>What we offer.</h2>
-          </div>
-          <div className={classes.root}>
-            <AppBar position="static">
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="simple tabs example"
-                centered
-              >
-                <Tab label="Hosting" {...a11yProps(0)} />
-                <Tab label="Social Media" {...a11yProps(1)} />
-                <Tab label="Messaging" {...a11yProps(2)} />
-              </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-              <HostingTable />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <SocialTable />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <MessagingTable />
-            </TabPanel>
-          </div>
-        </Paper>
+    <>
+      <div
+        className="heading"
+        id="why-heading"
+        style={{ paddingBottom: "100px" }}
+      ></div>
+      <div
+        className="why-us"
+        id="why-us"
+        style={{ backgroundColor: "black", padding: "20px", width: "100%" }}
+      >
+        <div className="container">
+          <Paper>
+            <div className={classes.root}>
+              <AppBar position="static">
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="simple tabs example"
+                  centered
+                  style={{ backgroundColor: "black" }}
+                >
+                  <Tab label="Hosting" {...a11yProps(0)} />
+                  <Tab label="Social Media" {...a11yProps(1)} />
+                  <Tab label="Messaging" {...a11yProps(2)} />
+                </Tabs>
+              </AppBar>
+              <TabPanel value={value} index={0}>
+                <HostingTable />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <SocialTable />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <MessagingTable />
+              </TabPanel>
+            </div>
+          </Paper>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

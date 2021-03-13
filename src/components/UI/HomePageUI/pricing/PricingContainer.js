@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     height: 140,
-    width: 100,
+    width: "100%",
   },
   control: {
     padding: theme.spacing(2),
@@ -31,8 +31,8 @@ const PricingContainer = () => {
   return (
     <div className={classes.root}>
       <h1>Pricing</h1>
-      <Grid container spacing={3} justify="center">
-        <Grid item xs={3}>
+      <Grid container spacing={10} justify="center">
+        <Grid item xs={6} md={6} lg={3}>
           <Paper className={classes.paper}>
             {" "}
             <PricingTable
@@ -44,7 +44,7 @@ const PricingContainer = () => {
             />
           </Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={6} lg={3}>
           <Paper className={classes.paper}>
             <PricingTable
               title="Intermediate Package"
@@ -55,7 +55,7 @@ const PricingContainer = () => {
             />
           </Paper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={6} lg={3}>
           <Paper className={classes.paper}>
             <PricingTable
               title="Custom Package"

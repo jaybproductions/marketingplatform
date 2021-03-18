@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import firebase from "../../firebase";
 import UserContext from "../../contexts/UserContext";
+import { TextField, Button } from "@material-ui/core";
 
 const SendMessageSingle = ({ number, userNum }) => {
   const { user } = useContext(UserContext);
@@ -61,22 +62,33 @@ const SendMessageSingle = ({ number, userNum }) => {
           });
         }
       }
+      setMessage("");
+      document.getElementById("message").scrollIntoView();
     }
   };
   return (
     <div className="send">
       <form>
-        <label>
-          Message:{" "}
-          <input
+        <div style={{ width: "50%", margin: "auto" }}>
+          <TextField
             type="text"
+            variant="outlined"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            id="message"
+            fullWidth
           />
-        </label>
-        <button type="submit" onClick={handleSubmit}>
-          Send
-        </button>
+          <div style={{ display: "inline", paddingTop: "10px" }} />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={handleSubmit}
+            fullWidth
+          >
+            Send
+          </Button>
+        </div>
       </form>
     </div>
   );

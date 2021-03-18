@@ -1,13 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 
-body {
+body,
+html {
   margin: 0;
+  padding: 0;
+  width: 100%;
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .why-us {
+  width: 100%;
+  margin: 0 auto;
   background: #085078; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,

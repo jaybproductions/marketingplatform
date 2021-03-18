@@ -57,7 +57,7 @@ const SubscriptionCard = ({ customerInfo }) => {
         `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
       );
       console.log(cardResponse.data);
-      setCardInfo(cardResponse.data.card);
+      setCardInfo(cardResponse.data);
     }
   };
 

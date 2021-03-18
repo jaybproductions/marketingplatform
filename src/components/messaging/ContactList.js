@@ -10,14 +10,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import SendMessage from "./SendMessage";
 import SendMessageSingle from "./SendMessageSingle";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const ContactList = () => {
   const { user } = useContext(UserContext);
   const [contacts, setContacts] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [number, setNumber] = useState("");
-
+  const history = useHistory();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -27,7 +28,14 @@ const ContactList = () => {
   };
 
   const handleStartMessage = () => {
-    setOpen(false);
+    const phoneno = /^\d{10}$/;
+    if (phoneno.test(number)) {
+      return history.push(`/message/+1${number}`);
+    } else {
+      toast.error("Please enter a valid phone number");
+      return false;
+      setOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -66,11 +74,13 @@ const ContactList = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        style={{ width: "1000px", margin: "auto" }}
       >
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <TextField
             label="Please enter phone number"
+            type="tel"
             variant="outlined"
             value={number}
             onChange={(e) => setNumber(e.target.value)}
@@ -86,6 +96,7 @@ const ContactList = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer />
     </div>
   );
 };

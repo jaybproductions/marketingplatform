@@ -17,6 +17,7 @@ const INITIAL_STATE = {
   },
 };
 
+//!TODO clean up form with material-ui
 const Signup = (props) => {
   const { user } = useContext(UserContext);
   const { handleSubmit, handleChange, values, isSubmitting } = useForm(

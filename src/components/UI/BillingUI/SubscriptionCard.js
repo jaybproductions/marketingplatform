@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import UserContext from "../../../contexts/UserContext";
-import firebase from "../../../firebase";
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -28,7 +26,6 @@ const useStyles = makeStyles({
 
 const SubscriptionCard = ({ customerInfo }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
   const [product, setProduct] = useState(null);
   const [due, setDue] = useState(null);
   const [cardInfo, setCardInfo] = useState(null);
@@ -38,6 +35,7 @@ const SubscriptionCard = ({ customerInfo }) => {
   }, [customerInfo]);
 
   const getSubscriptionItems = async () => {
+    //check if there is any customerInfo
     if (customerInfo) {
       const utcSeconds =
         customerInfo.subscriptions.data[0].current_period_end * 1000;
@@ -52,11 +50,11 @@ const SubscriptionCard = ({ customerInfo }) => {
       setProduct(response.data);
       const cardID = customerInfo.default_source;
       const customerID = customerInfo.id.toString();
-      console.log(customerID);
+
       const cardResponse = await axios.get(
         `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
       );
-      console.log(cardResponse.data);
+
       setCardInfo(cardResponse.data);
     }
   };

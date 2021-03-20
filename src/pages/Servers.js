@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import AWSInstance from "../components/UI/BillingUI/AWSInstance";
 import { Button } from "@material-ui/core";
 import NewInstanceModal from "../components/UI/BillingUI/NewInstanceModal";
 import AWSInstanceContainer from "../components/UI/BillingUI/AWSInstanceContainer";
 
+//Container for ServerInformation
 const Servers = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

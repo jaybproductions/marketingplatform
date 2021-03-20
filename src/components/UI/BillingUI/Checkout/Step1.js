@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Basic webform that collects name and email and password for new account
 const Step1 = ({ name, setName, email, setEmail, password, setPassword }) => {
   const classes = useStyles();
   return (

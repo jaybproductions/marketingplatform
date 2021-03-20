@@ -7,37 +7,31 @@ const Websites = () => {
   const [currentWebsites, setCurrentWebsites] = useState("");
   const { user } = useContext(UserContext);
   useEffect(() => {
+    if (!user) return;
     getData();
   }, [user]);
 
   const getData = () => {
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const docRef = firebase.db.collection("users").doc(user.uid);
-      docRef.get().then((doc) => {
-        setCurrentWebsites(doc.data().websites);
-      });
-    }
+    const docRef = firebase.db.collection("users").doc(user.uid);
+    docRef.get().then((doc) => {
+      setCurrentWebsites(doc.data().websites);
+    });
   };
 
   const handleSubmit = (e) => {
     let websiteArr = [];
     e.preventDefault();
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const docRef = firebase.db.collection("users").doc(user.uid);
-      docRef.get().then((doc) => {
-        websiteArr.push(newWebsite, ...doc.data().websites);
 
-        docRef.update({
-          websites: websiteArr,
-        });
+    const docRef = firebase.db.collection("users").doc(user.uid);
+    docRef.get().then((doc) => {
+      websiteArr.push(newWebsite, ...doc.data().websites);
+
+      docRef.update({
+        websites: websiteArr,
       });
+    });
 
-      console.log(newWebsite);
-    }
+    console.log(newWebsite);
   };
 
   return (

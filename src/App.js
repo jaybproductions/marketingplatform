@@ -12,7 +12,7 @@ import Forgot from "./pages/Auth/Forgot";
 
 //Context Imports
 import UserContext from "./contexts/UserContext";
-import Header from "./components/Header";
+import Header from "./components/UI/Header/Header";
 import Settings from "./pages/Settings";
 import Websites from "./pages/Websites";
 import Messages from "./pages/Messages";

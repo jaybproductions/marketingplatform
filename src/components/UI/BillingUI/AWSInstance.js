@@ -5,6 +5,7 @@ import { Card, Button } from "@material-ui/core";
 import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";
 
+//Display info about thier instance
 const AWSInstance = ({ instance, index, allInstances }) => {
   const { user } = useContext(UserContext);
   const [currentInstance, setCurrentInstance] = useState(null);

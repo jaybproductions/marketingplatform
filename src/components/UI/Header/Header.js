@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import firebase from "../firebase";
+import firebase from "../../../firebase";
 import { withRouter, Link } from "react-router-dom";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../../contexts/UserContext";
 import clsx from "clsx";
-import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -25,8 +25,7 @@ import ChatBubbleOutline from "@material-ui/icons/ChatBubbleOutline";
 import PublicIcon from "@material-ui/icons/Public";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import StorageIcon from "@material-ui/icons/Storage";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import AccountIcon from "./UI/AccountIcon";
+import AccountIcon from "./AccountIcon";
 
 const drawerWidth = 240;
 

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Checkbox, TextField } from "@material-ui/core";
 import PackageContainer from "./PackageContainer";
 
+//Gathering basic information about their domain and choosing a package for aws instance
 const Step2 = ({ selectedPackage, setSelectedPackage }) => {
   const [checkedYes, setCheckedYes] = useState(false);
   const [checkedNo, setCheckedNo] = useState(false);
@@ -12,6 +13,7 @@ const Step2 = ({ selectedPackage, setSelectedPackage }) => {
   useEffect(() => {
     checker();
   }, [checkedYes, checkedNo]);
+
   const checker = () => {
     if (checkedYes && checkedNo) {
       toast.error("Please only choose one option.");

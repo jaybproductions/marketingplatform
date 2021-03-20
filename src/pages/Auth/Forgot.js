@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   email: "",
 };
 
+//!TODO clean up form with material-ui
 const Forgot = (props) => {
   const { handleSubmit, handleChange, values, isSubmitting } = useForm(
     INITIAL_STATE,

@@ -12,6 +12,7 @@ const multerS3 = require("multer-s3");
 const fileMiddleware = require("express-multipart-file-parser");
 
 require("dotenv").config();
+
 //initialize stripe module
 const stripe = require("stripe")(
   "sk_test_51ILfdTIx8kJ3JcBGCZXdcQe0Zgqc43pqbu2vm1yrMUIMRXHYBSLCd7Vja6L4iwdPAktm8HE6oTTtVoT0f2d8xWZw008UEjBJce"
@@ -37,6 +38,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
+//firestore database
 const db = admin.firestore();
 
 //initialize twilio client
@@ -62,6 +64,7 @@ const s3 = new AWS.S3({
   region: "us-east-1",
 });
 
+//multer for retrieving file from form to upload to s3 bucket
 const uploadS3 = multer({
   storage: multerS3({
     s3: s3,
@@ -101,6 +104,7 @@ app.get("/aws/getdomains", (req, res) => {
   });
 });
 
+//get lightsail instance by instance name
 app.get("/aws/getinstance/:instanceName", (req, res) => {
   var params = {
     instanceName: `${req.params.instanceName}`,
@@ -112,6 +116,7 @@ app.get("/aws/getinstance/:instanceName", (req, res) => {
   });
 });
 
+//create a new instance when customer purchases one
 app.get(
   "/aws/:user/createinstance/:instanceName/:zone/:blueprint/:bundle",
   (req, res) => {
@@ -144,6 +149,7 @@ app.get("/aws/getsnapshots", (req, res) => {
   });
 });
 
+//allocate a static ip to newly created instance --> !TODO figure out a way to create a new static IP
 app.post("/aws/allocateip", (req, res) => {
   const { instanceName, staticIpName } = req.body;
 
@@ -205,6 +211,7 @@ app.get("/teststripe", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+//get customer by cusID
 app.get("/getcustomer/:customerId", (req, res) => {
   stripe.customers
     .retrieve(req.params.customerId, {
@@ -214,6 +221,7 @@ app.get("/getcustomer/:customerId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+//get subscription from prodId
 app.get("/getsubscription/:productId", (req, res) => {
   stripe.products
     .retrieve(req.params.productId, {})
@@ -221,6 +229,7 @@ app.get("/getsubscription/:productId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+//get cardId from a cusId
 app.get("/:customerId/getcard/:cardId", (req, res) => {
   stripe.customers
     .retrieveSource(req.params.customerId, req.params.cardId, {})
@@ -228,6 +237,7 @@ app.get("/:customerId/getcard/:cardId", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+//Stripe checkout
 app.post("/checkout", async (req, res) => {
   let error;
   let status;
@@ -386,6 +396,7 @@ app.post("/checkout", async (req, res) => {
 
 //S3 Routes
 
+//Social Calendar Routes
 // get posts
 app.get("/:userid/:clientid/posts", (req, res) => {
   (async () => {
@@ -413,7 +424,7 @@ app.get("/:userid/:clientid/posts", (req, res) => {
   })();
 });
 
-// update
+// add new post to calendar -- upload to s3 -- add to firestore db
 app.put("/:userid/add", (req, res) => {
   (async () => {
     console.log(req.body.post);
@@ -459,4 +470,5 @@ app.put("/:userid/add", (req, res) => {
   })();
 });
 
+//export app to firebase functions
 exports.app = functions.https.onRequest(app);

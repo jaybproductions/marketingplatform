@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+//Dialog to allow already signed up customers to purchase new instances --> Not Finished
 export default function NewInstanceModal({ open, setOpen }) {
   const handleClose = () => {
     setOpen(false);

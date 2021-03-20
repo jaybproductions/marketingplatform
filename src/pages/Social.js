@@ -25,10 +25,8 @@ const SocialPage = (props) => {
   let userID = params.userid;
 
   useEffect(() => {
+    if (!user) return;
     getEvents();
-    if (user) {
-      console.log(user.uid);
-    }
   }, [user]);
 
   useEffect(() => {
@@ -39,28 +37,25 @@ const SocialPage = (props) => {
 
   const getEvents = async () => {
     let tempArr = [];
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const eventsRef = await firebase.db
-        .collection("socialposts")
-        .where("userid", "==", `${user.uid}`)
-        .get();
-      eventsRef.forEach((doc) => {
-        console.log(doc.data());
-        tempArr.push(doc.data());
-      });
 
-      tempArr.forEach((event) => {
-        event.start = new Date(event.start);
-        if (event.end == null) {
-          event.end = new Date(event.start);
-        } else {
-          event.end = new Date(event.end);
-        }
-      });
-      setEventsArray(tempArr);
-    }
+    const eventsRef = await firebase.db
+      .collection("socialposts")
+      .where("userid", "==", `${user.uid}`)
+      .get();
+    eventsRef.forEach((doc) => {
+      console.log(doc.data());
+      tempArr.push(doc.data());
+    });
+
+    tempArr.forEach((event) => {
+      event.start = new Date(event.start);
+      if (event.end == null) {
+        event.end = new Date(event.start);
+      } else {
+        event.end = new Date(event.end);
+      }
+    });
+    setEventsArray(tempArr);
 
     /* axios
       .get(

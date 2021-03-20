@@ -1,6 +1,7 @@
 import React from "react";
 import "./HowItWorks.css";
 
+//?Not sure if I want to keep this
 const HowItWorks = () => {
   return (
     <div className="how-it-works" id="how-it-works">

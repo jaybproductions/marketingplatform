@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
-
 import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
 import firebase from "../../firebase";
@@ -10,6 +9,7 @@ const INITIAL_STATE = {
   password: "",
 };
 
+//!TODO clean up form with material-ui
 const Login = (props) => {
   const { handleSubmit, handleChange, values, isSubmitting } = useForm(
     INITIAL_STATE,

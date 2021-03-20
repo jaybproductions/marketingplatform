@@ -23,8 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//!TODO update feature list
 const basicFeatures = ["good", "great", "best"];
 
+//Pricing Table Container
 const PricingContainer = () => {
   const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();

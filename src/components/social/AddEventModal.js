@@ -39,6 +39,7 @@ const AddEventModal = ({
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
+  //Function for adding new Posts to the calendar
   const handleAddEvent = () => {
     if (!image) {
       setFileError(true);

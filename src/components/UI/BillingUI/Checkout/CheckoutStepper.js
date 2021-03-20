@@ -109,17 +109,18 @@ export default function CheckoutStepper() {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
+    //if the current step is 0 add the form information to db as a lead
     if (activeStep === 0) {
       const docRef = await firebase.db.collection("leads").doc(email).get();
+      //check to make sure they haven't already filled it out
       if (!docRef.exists) {
         firebase.db.collection("leads").doc(email).set({
           name: name,
           email: email,
         });
       } else {
-        console.log("this lead already exists");
+        return;
       }
-      console.log("step 1 submit");
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

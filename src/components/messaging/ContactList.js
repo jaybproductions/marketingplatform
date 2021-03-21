@@ -76,7 +76,9 @@ const ContactList = () => {
         aria-labelledby="form-dialog-title"
         style={{ width: "1000px", margin: "auto" }}
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Start a new conversation
+        </DialogTitle>
         <DialogContent>
           <TextField
             label="Please enter phone number"

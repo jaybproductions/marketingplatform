@@ -44,7 +44,8 @@ const BillingCardInfo = () => {
       const customerId = snapshot.data().subscriptionInfo.stripeCustomerID;
       setData(snapshot.data());
       const response = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getcustomer/${customerId}`
+        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getcustomer/${customerId}` ||
+          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getcustomer/${customerId}`
       );
       setSubscriptionInfo(response.data);
       console.log(response.data);

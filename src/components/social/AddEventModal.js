@@ -63,8 +63,8 @@ const AddEventModal = ({
 
     addFormData.append("post", JSON.stringify(newPost));
     axios.put(
-      //`https://socialcalendar123.herokuapp.com/${userID}/add/${client}` ||
-      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${userID}/add`,
+      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${userID}/add` ||
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${userID}/add`,
       addFormData,
       {}
     );

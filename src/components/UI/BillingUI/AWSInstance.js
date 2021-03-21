@@ -22,7 +22,8 @@ const AWSInstance = ({ instance, index, allInstances }) => {
       const data = docRef.data();
       tempArr.push(instance);
       const response = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${instance.instanceName}`
+        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/aws/getinstance/${instance.instanceName}` ||
+          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${instance.instanceName}`
       );
       const instanceInfo = response.data;
       setCurrentInstance(instanceInfo.instance);
@@ -37,7 +38,8 @@ const AWSInstance = ({ instance, index, allInstances }) => {
         instanceInfo.instance.isStaticIp === false
       ) {
         const allocateIPResponse = await axios.post(
-          "http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/allocateip",
+          `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/aws/allocateip` ||
+            "http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/allocateip",
           {
             instanceName: instanceInfo.instance.name,
             staticIpName: `StaticIp-${user.uid}`,

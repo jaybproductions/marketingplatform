@@ -18,7 +18,8 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
 
   const handleToken = async (token, addresses) => {
     const response = await axios.post(
-      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/checkout`,
+      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/checkout` ||
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/checkout`,
       {
         token: token,
         product: product,

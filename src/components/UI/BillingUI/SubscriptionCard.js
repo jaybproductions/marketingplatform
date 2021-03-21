@@ -44,7 +44,8 @@ const SubscriptionCard = ({ customerInfo }) => {
 
       const productID = customerInfo.subscriptions.data[0].plan.product;
       const response = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getsubscription/${productID}`
+        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getsubscription/${productID}` ||
+          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getsubscription/${productID}`
       );
       console.log(response.data);
       setProduct(response.data);
@@ -52,10 +53,12 @@ const SubscriptionCard = ({ customerInfo }) => {
       const customerID = customerInfo.id.toString();
 
       const cardResponse = await axios.get(
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
+        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${customerID}/getcard/${cardID}` ||
+          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
       );
 
       setCardInfo(cardResponse.data);
+      console.log(cardResponse.data);
     }
   };
 
@@ -87,7 +90,7 @@ const SubscriptionCard = ({ customerInfo }) => {
                 </Typography>
                 {cardInfo && (
                   <Typography className={classes.pos} color="textSecondary">
-                    Card: ***{cardInfo.last4}
+                    Card: ***{cardInfo.card.last4}
                   </Typography>
                 )}
               </>

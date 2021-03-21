@@ -9,7 +9,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   return (
     <div className="home">
-      {user ? (
+      {!user ? (
         <>
           {" "}
           <div className="hero">

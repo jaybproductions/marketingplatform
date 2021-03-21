@@ -26,6 +26,7 @@ import PublicIcon from "@material-ui/icons/Public";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import StorageIcon from "@material-ui/icons/Storage";
 import AccountIcon from "./AccountIcon";
+import { Button } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -167,12 +168,16 @@ const Header = (props) => {
               ) : (
                 <>
                   {" "}
-                  <Link to={"/checkout"} style={{ color: "white" }}>
+                  <Link to={"/checkout/1"} style={{ color: "white" }}>
                     <button type="button" className="btn btn-warning">
                       Get Started
                     </button>{" "}
                   </Link>
-                  <AccountIcon />
+                  <Link to={"/login"}>
+                    <Button variant="contained" color="primary">
+                      Login
+                    </Button>
+                  </Link>
                 </>
               )}
             </div>

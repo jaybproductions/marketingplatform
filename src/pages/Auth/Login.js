@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
 import firebase from "../../firebase";
+import { Button, TextField } from "@material-ui/core";
 
 const INITIAL_STATE = {
   email: "",
@@ -39,29 +40,34 @@ const Login = (props) => {
   return (
     <div className="login" style={{ textAlign: "center" }}>
       <h1 style={{ paddingTop: "10px", textAlign: "center" }}>
-        QR Store Login
+        Marketing Platform Login
       </h1>
-
+      <br />
       <form lines="full">
-        <label position="floating">Email</label>
-        <input
+        <TextField
           name="email"
+          variant="outlined"
           type="text"
+          label="Email"
           required
           value={values.email}
           onChange={handleChange}
-        ></input>
-
-        <label position="floating">Password</label>
-        <input
+        />
+        <br />
+        <br />
+        <TextField
           name="password"
+          label="Password"
           type="password"
+          variant="outlined"
           required
           value={values.password}
           onChange={handleChange}
-        ></input>
+        />
       </form>
-      <button
+      <br />
+      <Button
+        variant="contained"
         type="submit"
         color="primary"
         expand="block"
@@ -69,8 +75,8 @@ const Login = (props) => {
         disabled={isSubmitting}
       >
         Log In
-      </button>
-
+      </Button>
+      <br />
       <Link to={"/forgot"}>Forgot Password?</Link>
     </div>
   );

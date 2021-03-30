@@ -37,23 +37,13 @@ function getSteps() {
 
 export default function CheckoutStepper() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [selectedPackage, setSelectedPackage] = useState(1);
   const steps = getSteps();
-
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
-  useEffect(() => {
-    if (!selectedPackage) {
-      return;
-    }
-    console.log(selectedPackage.number);
-  }, [selectedPackage.number]);
 
   function getStepContent(step) {
     switch (step) {
@@ -111,20 +101,24 @@ export default function CheckoutStepper() {
     }
     //if the current step is 0 add the form information to db as a lead
     if (activeStep === 0) {
-      const docRef = await firebase.db.collection("leads").doc(email).get();
-      //check to make sure they haven't already filled it out
-      if (!docRef.exists) {
-        firebase.db.collection("leads").doc(email).set({
-          name: name,
-          email: email,
-        });
-      } else {
-        return;
-      }
+      AddLeadToDb();
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+  };
+
+  const AddLeadToDb = async () => {
+    const docRef = await firebase.db.collection("leads").doc(email).get();
+    //check to make sure they haven't already filled it out
+    if (!docRef.exists) {
+      firebase.db.collection("leads").doc(email).set({
+        name: name,
+        email: email,
+      });
+    } else {
+      return;
+    }
   };
 
   const handleBack = () => {

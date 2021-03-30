@@ -4,6 +4,7 @@ import validateLogin from "../../validators/validateLogin";
 import useForm from "../../hooks/useForm";
 import firebase from "../../firebase";
 import { Button, TextField } from "@material-ui/core";
+import { toast, ToastContainer } from "react-toastify";
 
 const INITIAL_STATE = {
   email: "",
@@ -26,13 +27,10 @@ const Login = (props) => {
 
     try {
       await firebase.login(email, password);
-
-      console.log("You are now logged in!");
-      console.log(props);
+      toast.success("You are now logged in!");
       props.history.push("/home");
     } catch (err) {
-      console.error("authentication error", err);
-      console.log(err.message);
+      toast.error("Unable to login. Please check username/password.");
     }
     setBusy(false);
   }
@@ -78,6 +76,7 @@ const Login = (props) => {
       </Button>
       <br />
       <Link to={"/forgot"}>Forgot Password?</Link>
+      <ToastContainer />
     </div>
   );
 };

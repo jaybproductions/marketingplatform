@@ -4,6 +4,7 @@ import UserContext from "../../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
 import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";
+import { toast, ToastContainer } from "react-toastify";
 
 //Display info about thier instance
 const AWSInstance = ({ instance, index, allInstances }) => {
@@ -39,6 +40,11 @@ const AWSInstance = ({ instance, index, allInstances }) => {
         }
       );
       console.log(allocateIPResponse.status);
+      if (allocateIPResponse.status === 200) {
+        toast.warn(
+          "Your Static IP has been assigned. Please refresh the page."
+        );
+      }
       const updateRef = firebase.db.collection("users").doc(user.uid);
       const objIndex = tempArr.findIndex(
         (obj) => obj.staticIpAllocated === false
@@ -84,6 +90,7 @@ const AWSInstance = ({ instance, index, allInstances }) => {
               )}
             </div>
           </Card>
+          <ToastContainer />
         </>
       )}
     </div>

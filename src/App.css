@@ -37,16 +37,12 @@
 
 .messages {
   padding: 20px;
-  width: 60%;
+  width: 100%;
   margin: auto;
   text-align: left;
 }
 
 .websites {
-  text-align: center;
-}
-
-.billing {
   text-align: center;
 }
 
@@ -68,6 +64,7 @@ html {
   margin: auto;
   width: 60%;
   padding-top: 20px;
+  text-align: center;
 }
 
 .servers {
@@ -87,14 +84,14 @@ html {
 .recieved {
   background-color: lightgray;
   margin: auto;
-  width: 20%;
+  width: 40%;
   border-radius: 25px;
   padding: 10px;
 }
 
 .sent {
   margin: auto;
-  width: 20%;
+  width: 40%;
   background-color: cornflowerblue;
   color: white;
   border-radius: 25px;

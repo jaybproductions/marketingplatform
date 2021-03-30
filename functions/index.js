@@ -337,15 +337,6 @@ app.post("/checkout", async (req, res) => {
             blueprintId: blueprintId,
             bundleId: bundleId,
           };
-          //TODO Static IP address creation not working move into new route to check for bool
-          lightsail.allocateStaticIp(
-            {
-              staticIpName: `StaticIp-${user.uid}`,
-            },
-            (err, data) => {
-              console.log(data);
-            }
-          );
 
           lightsail.createInstances(params, function (err, data) {
             if (err) console.log(err, err.stack);

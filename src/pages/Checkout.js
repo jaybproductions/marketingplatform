@@ -3,7 +3,7 @@ import CheckoutStepper from "../components/UI/BillingUI/Checkout/CheckoutStepper
 
 const Checkout = () => {
   return (
-    <div className="checkout">
+    <div className="checkout" style={{ width: "100%" }}>
       <CheckoutStepper />
     </div>
   );

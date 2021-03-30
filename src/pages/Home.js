@@ -4,6 +4,7 @@ import WhyUs from "../components/UI/HomePageUI/WhyUs";
 import UserContext from "./../contexts/UserContext";
 import PricingContainer from "../components/UI/HomePageUI/pricing/PricingContainer";
 import HowItWorks from "../components/UI/HomePageUI/HowItWorks";
+import HomeInstanceCard from "../components/UI/HomePageUI/HomeInstanceCard";
 //!Todo change to !user to show sales page
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -21,17 +22,8 @@ const Home = () => {
         </>
       ) : (
         <div className="home">
-          <h1> Welcome to (Marketing Platform)</h1>
-          <p>
-            This is where you will be able to monitor all levels of your online
-            presence in one spot!{" "}
-          </p>
-          <ul style={{ alignItems: "center" }}>
-            <li>Social Media Posts</li>
-            <li>Website</li>
-            <li>Your Server Instances</li>
-            <li>Something else</li>
-          </ul>
+          <h1> Welcome, {user.displayName}</h1>
+          <HomeInstanceCard user={user.uid} />
         </div>
       )}
     </div>

@@ -11,17 +11,15 @@ const AWSInstanceContainer = () => {
   const [instances, setInstances] = useState(null);
 
   useEffect(() => {
+    if (!user) return;
     getInstances();
   }, [user]);
+
   const getInstances = async () => {
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const docRef = await firebase.db.collection("users").doc(user.uid).get();
-      const data = docRef.data();
-      console.log(data);
-      setInstances(data.awsInstances);
-    }
+    const docRef = await firebase.db.collection("users").doc(user.uid).get();
+    const data = docRef.data();
+    console.log(data);
+    setInstances(data.awsInstances);
   };
 
   return (
@@ -30,13 +28,13 @@ const AWSInstanceContainer = () => {
         <>
           <div style={{ padding: "10px" }}></div>
           {instances.map((instance, index) => (
-            <>
+            <div key={index}>
               <AWSInstance
                 instance={instance}
                 index={index}
                 allInstances={instances}
               />
-            </>
+            </div>
           ))}
         </>
       )}

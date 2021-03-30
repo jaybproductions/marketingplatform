@@ -153,11 +153,11 @@ const Header = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{ width: "70%" }}>
-            <div className="title">
+          <div className="title">
+            <Typography variant="h6" noWrap style={{ width: "70%" }}>
               <h3>{props.title}</h3>
-            </div>
-          </Typography>
+            </Typography>{" "}
+          </div>
           <Typography style={{ textAlign: "right" }}>
             {" "}
             <div className={classes.userInfo}>
@@ -237,18 +237,20 @@ const Header = (props) => {
               icon: <SettingsIcon />,
             },
           ].map((item, index) => (
-            <Link to={item.link} style={{ textDecoration: "none" }}>
-              <ListItem
-                button
-                key={item.name}
-                selected={selectedIndex === index}
-                onClick={(event) => handleListItemClick(event, index)}
-                classes={{ selected: classes.selected }}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItem>
-            </Link>
+            <div key={index}>
+              <Link to={item.link} style={{ textDecoration: "none" }}>
+                <ListItem
+                  button
+                  key={item.name}
+                  selected={selectedIndex === index}
+                  onClick={(event) => handleListItemClick(event, index)}
+                  classes={{ selected: classes.selected }}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+              </Link>
+            </div>
           ))}
         </List>
       </Drawer>

@@ -90,7 +90,7 @@ const SubscriptionCard = ({ customerInfo }) => {
                 </Typography>
                 {cardInfo && (
                   <Typography className={classes.pos} color="textSecondary">
-                    Card: ***{cardInfo.card.last4}
+                    Card: ***{/*cardInfo.card.last4*/}
                   </Typography>
                 )}
               </>

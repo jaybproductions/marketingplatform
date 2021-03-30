@@ -37,7 +37,9 @@
 
 .messages {
   padding: 20px;
-  text-align: center;
+  width: 60%;
+  margin: auto;
+  text-align: left;
 }
 
 .websites {
@@ -83,7 +85,7 @@ html {
 }
 
 .recieved {
-  background-color: gray;
+  background-color: lightgray;
   margin: auto;
   width: 20%;
   border-radius: 25px;
@@ -93,7 +95,7 @@ html {
 .sent {
   margin: auto;
   width: 20%;
-  background-color: blue;
+  background-color: cornflowerblue;
   color: white;
   border-radius: 25px;
   padding: 10px;

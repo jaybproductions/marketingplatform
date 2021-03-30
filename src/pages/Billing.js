@@ -1,10 +1,10 @@
 import React from "react";
-import BillingCardInfo from "../components/UI/BillingUI/BillingCardInfo";
+import CustomerInfoContainer from "../components/UI/BillingUI/CustomerInfoContainer";
 
 const Billing = () => {
   return (
     <div className="billing">
-      <BillingCardInfo />
+      <CustomerInfoContainer />
     </div>
   );
 };

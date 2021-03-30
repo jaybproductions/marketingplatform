@@ -12,7 +12,7 @@ const Servers = () => {
   };
   return (
     <div className="servers">
-      <h4>Your Current Instances</h4>
+      <h4>Current Instances</h4>
       <AWSInstanceContainer />
       <div style={{ padding: "30px" }}>
         {" "}

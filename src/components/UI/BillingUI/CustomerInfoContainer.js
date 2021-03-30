@@ -1,30 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
-
 import UserContext from "../../../contexts/UserContext";
 import firebase from "../../../firebase";
 import axios from "axios";
 import SubscriptionCard from "./SubscriptionCard";
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
-const BillingCardInfo = () => {
+const CustomerInfoContainer = () => {
   const { user } = useContext(UserContext);
   const [data, setData] = useState(null);
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);
@@ -62,4 +42,4 @@ const BillingCardInfo = () => {
   );
 };
 
-export default BillingCardInfo;
+export default CustomerInfoContainer;

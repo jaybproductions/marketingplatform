@@ -57,13 +57,11 @@ const Websites = () => {
       <div className="website-to-show">
         {currentWebsites &&
           currentWebsites.map((website, index) => (
-            <>
-              <Button>
-                <a href={"http://" + website} target="_blank">
-                  {website}
-                </a>
-              </Button>
-            </>
+            <Button key={index}>
+              <a href={"http://" + website} target="_blank">
+                {website}
+              </a>
+            </Button>
           ))}
       </div>
     </div>

@@ -80,6 +80,19 @@ function App() {
                         </NavIcon>
                         <NavText>Websites</NavText>
                       </NavItem>
+                      <NavItem eventKey="servers">
+                        <NavIcon>
+                          <ion-icon name="server-outline"></ion-icon>
+                        </NavIcon>
+                        <NavText>Servers</NavText>
+                      </NavItem>
+
+                      <NavItem eventKey="billing">
+                        <NavIcon>
+                          <ion-icon name="wallet-outline"></ion-icon>
+                        </NavIcon>
+                        <NavText>Billing</NavText>
+                      </NavItem>
                       <NavItem eventKey="settings">
                         <NavIcon>
                           <ion-icon name="cog-outline"></ion-icon>

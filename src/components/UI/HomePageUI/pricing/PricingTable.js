@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 const PricingTable = ({ title, features, price, link, buttonText }) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   return (
     <div className="pricing-table">
       <Card className={classes.root} variant="outlined">

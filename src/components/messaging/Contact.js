@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     "& > *": {
       margin: "auto",
-      width: "50%",
+      width: "25%",
       height: "50px",
     },
   },
@@ -29,7 +29,7 @@ const Contact = ({ contact }) => {
         style={{ color: "black", textDecoration: "none" }}
       >
         <Paper className={classes.paper}>
-          <div className="text" style={{ padding: "10px" }}>
+          <div className="text" style={{ padding: "15px" }}>
             {contact.name ? contact.name : contact.phone}
           </div>
         </Paper>

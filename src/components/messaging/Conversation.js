@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -107,25 +108,26 @@ const Conversation = ({ conversation, user }) => {
       </Snackbar>
 
       {doesNameExist && currentContact ? (
-        currentContact.name
+        <center>{currentContact.name}</center>
       ) : (
         <>
-          <form>
-            <label>
-              Add Contact Name:{" "}
-              <input
+          <center>
+            <form>
+              <TextField
+                label="New Contact"
                 type="text"
                 value={newContactName}
                 onChange={(e) => setNewContactName(e.target.value)}
               />
-            </label>
-            <Button type="submit" onClick={handleAddContactName}>
-              Add
-            </Button>
-          </form>{" "}
+
+              <Button type="submit" onClick={handleAddContactName}>
+                Add
+              </Button>
+            </form>
+          </center>
         </>
       )}
-      {contact}
+      <center>{contact}</center>
       {conversation.map((msg, index) => (
         <>
           {user.twilioNum == msg.to ? (

@@ -43,7 +43,6 @@ const SocialPage = (props) => {
       .where("userid", "==", `${user.uid}`)
       .get();
     eventsRef.forEach((doc) => {
-      console.log(doc.data());
       tempArr.push(doc.data());
     });
 
@@ -108,25 +107,11 @@ const SocialPage = (props) => {
     setEventDetails([event]);
   };
 
-  const handleOpenLogin = async (event) => {
-    setOpenLogin(true);
-  };
-
   const handleFileRead = async (event) => {
     const file = event.target.files[0];
 
     setImage(file);
   };
-
-  async function LogoutUser() {
-    try {
-      await firebase.logout();
-      props.history.push(`/client/${client}`);
-      console.log("youve logged out");
-    } catch (err) {
-      console.error("Unable to log out", err);
-    }
-  }
 
   return (
     <div className="social">

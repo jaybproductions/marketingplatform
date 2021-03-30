@@ -60,26 +60,24 @@ const ContactList = () => {
   };
   return (
     <div className="contacts">
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        New Message
-      </Button>
+      <center>
+        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+          New Message
+        </Button>
+      </center>
       {contacts &&
         contacts.map((contact, index) => (
-          <>
+          <div key={index} style={{ padding: "5px" }}>
             <Contact contact={contact} />
-          </>
+          </div>
         ))}
 
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        style={{ width: "1000px", margin: "auto" }}
       >
-        <DialogTitle id="form-dialog-title">
-          Start a new conversation
-        </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ height: "100px" }}>
           <TextField
             label="Please enter phone number"
             type="tel"

@@ -8,7 +8,6 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
@@ -48,33 +47,31 @@ const EventModal = ({ openEvent, handleClose, eventDetails }) => {
           <DialogContentText>
             {eventDetails &&
               Object.values(eventDetails).map((item, index) => (
-                <>
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <img className={classes.media} src={item.imageUrl} />
-                    </CardActionArea>
-                    <CardContent>
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                      ></Typography>
-                      <Typography
-                        variant="body2"
-                        color="textPrimary"
-                        component="article"
-                      >
-                        <b>Post Description: </b>
-                        {item.description}
-                        <br />
-                        <b>Hashtags:</b> {item.hashtags}
-                        <br />
-                        <b>Platform(s):</b> {item.platform}
-                      </Typography>
-                    </CardContent>
-                    <CardActions></CardActions>
-                  </Card>
-                </>
+                <Card className={classes.root} key={index}>
+                  <CardActionArea>
+                    <img className={classes.media} src={item.imageUrl} />
+                  </CardActionArea>
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    ></Typography>
+                    <Typography
+                      variant="body2"
+                      color="textPrimary"
+                      component="article"
+                    >
+                      <b>Post Description: </b>
+                      {item.description}
+                      <br />
+                      <b>Hashtags:</b> {item.hashtags}
+                      <br />
+                      <b>Platform(s):</b> {item.platform}
+                    </Typography>
+                  </CardContent>
+                  <CardActions></CardActions>
+                </Card>
               ))}
           </DialogContentText>
         </DialogContent>

@@ -70,7 +70,7 @@ const SendMessageSingle = ({ number, userNum }) => {
   return (
     <div className="send">
       <form>
-        <div style={{ width: "50%", margin: "auto" }}>
+        <div style={{ width: "100%", margin: "auto" }}>
           <TextField
             type="text"
             variant="outlined"

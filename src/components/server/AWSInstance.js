@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import firebase from "../../../firebase";
-import UserContext from "../../../contexts/UserContext";
+import firebase from "../../firebase";
+import UserContext from "../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
 import axios from "axios";
-import NewInstanceModal from "./NewInstanceModal";
 import { toast, ToastContainer } from "react-toastify";
 
 //Display info about thier instance
@@ -17,8 +16,7 @@ const AWSInstance = ({ instance, index, allInstances }) => {
   const getInstances = async () => {
     let tempArr = [];
     let tempAll = allInstances;
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    const data = docRef.data();
+
     tempArr.push(instance);
     const response = await axios.get(
       `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/aws/getinstance/${instance.instanceName}` ||
@@ -39,7 +37,7 @@ const AWSInstance = ({ instance, index, allInstances }) => {
           staticIpName: `StaticIp-${user.uid}`,
         }
       );
-      console.log(allocateIPResponse.status);
+
       if (allocateIPResponse.status === 200) {
         toast.warn(
           "Your Static IP has been assigned. Please refresh the page."

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-import NewInstanceModal from "../components/UI/BillingUI/NewInstanceModal";
-import AWSInstanceContainer from "../components/UI/BillingUI/AWSInstanceContainer";
+import NewInstanceModal from "../components/server/NewInstanceModal";
+import AWSInstanceContainer from "../components/server/AWSInstanceContainer";
 
 //Container for ServerInformation
 const Servers = () => {

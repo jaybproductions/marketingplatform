@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import firebase from "../../../firebase";
-import UserContext from "../../../contexts/UserContext";
+import firebase from "../../firebase";
+import UserContext from "../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
 import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";

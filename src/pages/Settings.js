@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
-import TwilioSection from "../components/UI/SettingsPageUI/TwilioSection";
+import TwilioSection from "../components/SettingsPageUI/TwilioSection";
 
 //!Not Finished
 const Settings = () => {

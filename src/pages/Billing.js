@@ -1,5 +1,5 @@
 import React from "react";
-import CustomerInfoContainer from "../components/UI/BillingUI/CustomerInfoContainer";
+import CustomerInfoContainer from "../components/billing/CustomerInfoContainer";
 
 const Billing = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../../../contexts/UserContext";
-import firebase from "../../../firebase";
+import UserContext from "../../contexts/UserContext";
+import firebase from "../../firebase";
 import axios from "axios";
 import SubscriptionCard from "./SubscriptionCard";
 

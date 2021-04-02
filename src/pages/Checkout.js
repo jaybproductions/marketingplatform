@@ -1,5 +1,5 @@
 import React from "react";
-import CheckoutStepper from "../components/UI/BillingUI/Checkout/CheckoutStepper";
+import CheckoutStepper from "../components/billing/Checkout/CheckoutStepper";
 
 const Checkout = () => {
   return (

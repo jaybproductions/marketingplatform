@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import UserContext from "../../../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 import NewInstanceModal from "./NewInstanceModal";
 
-import {
-  GetSingleAwsInstance,
-  AssignStaticIp,
-} from "../../../utils/API/AWS/api";
+import { GetSingleAwsInstance, AssignStaticIp } from "../../utils/API/AWS/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {

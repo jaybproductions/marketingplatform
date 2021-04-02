@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import UserContext from "../../../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import SubscriptionCard from "./SubscriptionCard";
-import { GetUserData } from "../../../utils/API/User/api";
-import { GetStripeCustomerInfo } from "../../../utils/API/Stripe/api";
+import { GetUserData } from "../../utils/API/User/api";
+import { GetStripeCustomerInfo } from "../../utils/API/Stripe/api";
 
 const CustomerInfoContainer = () => {
   const { user } = useContext(UserContext);

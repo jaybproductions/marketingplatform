@@ -10,7 +10,7 @@ import {
   GetDueDate,
   GetProductInfo,
   GetCardInfo,
-} from "../../../utils/API/Stripe/api";
+} from "../../utils/API/Stripe/api";
 
 const useStyles = makeStyles({
   root: {

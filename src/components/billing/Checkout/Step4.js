@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Package from "./Package";
 import { Card, CardContent } from "@material-ui/core";
-import firebase from "../../../../firebase";
 import { useHistory } from "react-router-dom";
 
 //Finalize checkout and process payment through stripe -- create firebase account --

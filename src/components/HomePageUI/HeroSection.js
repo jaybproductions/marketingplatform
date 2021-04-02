@@ -1,8 +1,8 @@
 import React from "react";
 import "./Hero.css";
 import Paper from "@material-ui/core/Paper";
-import HeroImg from "../../../images/heroimage.png";
-import HeroImg2 from "../../../images/twilio.png";
+import HeroImg from "../../images/heroimage.png";
+import HeroImg2 from "../../images/twilio.png";
 
 const HeroSection = () => {
   function closeMenuAndGoTo(query) {

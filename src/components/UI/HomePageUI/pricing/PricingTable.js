@@ -40,10 +40,10 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
           <Typography variant="span" component="h2">
             <div style={{ margin: "auto", alignItems: "left" }}>
               <ul style={{ textAlign: "left" }}>
-                {features.map((feature) => (
-                  <>
+                {features.map((feature, index) => (
+                  <ul key={index}>
                     <li style={{ fontSize: "16px" }}>{feature}</li>
-                  </>
+                  </ul>
                 ))}
               </ul>
             </div>

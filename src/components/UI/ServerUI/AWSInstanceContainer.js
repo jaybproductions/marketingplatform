@@ -3,15 +3,15 @@ import UserContext from "../../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
 import NewInstanceModal from "./NewInstanceModal";
 import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import AWSInstance from "./AWSInstance";
 import { GetAWSInstanceData } from "../../../utils/API/AWS/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    width: "100%",
     "& > * + *": {
-      marginLeft: theme.spacing(2),
+      marginTop: theme.spacing(2),
     },
   },
 }));
@@ -34,7 +34,8 @@ const AWSInstanceContainer = () => {
     <div className="instance" style={{ display: "grid", placeItems: "center" }}>
       {!instances && (
         <div className={classes.root}>
-          <CircularProgress />
+          <LinearProgress />
+          Please wait while we setup your instance.
         </div>
       )}
       {instances && (

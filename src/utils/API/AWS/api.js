@@ -2,7 +2,10 @@ import { GetUserData } from "../User/api";
 import axios from "axios";
 export async function GetAWSInstanceData(userId) {
   if (!userId) return;
-  return GetUserData(userId).then((data) => data.awsInstances);
+  return GetUserData(userId).then((data) => {
+    if (!data) return;
+    return data.awsInstances;
+  });
 }
 
 export async function GetSingleAwsInstance(awsInstance) {
@@ -16,6 +19,7 @@ export async function GetSingleAwsInstance(awsInstance) {
 }
 
 export async function AssignStaticIp(userId, awsInstance) {
+  if (!awsInstance) return;
   if (awsInstance.state.name !== "running")
     return "Please Wait While Your Instance is Being Setup";
   if (awsInstance.isStaticIp === true) return;

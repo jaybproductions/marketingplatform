@@ -5,7 +5,6 @@ import UserContext from "./../contexts/UserContext";
 import PricingContainer from "../components/UI/HomePageUI/pricing/PricingContainer";
 import HowItWorks from "../components/UI/HomePageUI/HowItWorks";
 
-//!Todo change to !user to show sales page
 const Home = () => {
   const { user } = useContext(UserContext);
 

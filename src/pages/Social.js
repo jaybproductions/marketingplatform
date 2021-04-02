@@ -8,6 +8,7 @@ import AddEventModal from "../components/social/AddEventModal";
 import UserContext from "../contexts/UserContext";
 import firebase from "../firebase";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { GetSocialPostsFromFirebase } from "../utils/Database/Social/firebase";
 
 const SocialPage = (props) => {
   const { user } = useContext(UserContext);
@@ -26,7 +27,7 @@ const SocialPage = (props) => {
 
   useEffect(() => {
     if (!user) return;
-    getEvents();
+    HandleGetSocialPostsFromFirebase();
   }, [user]);
 
   useEffect(() => {
@@ -35,56 +36,9 @@ const SocialPage = (props) => {
     }
   }, [eventDetails]);
 
-  const getEvents = async () => {
-    let tempArr = [];
-
-    const eventsRef = await firebase.db
-      .collection("socialposts")
-      .where("userid", "==", `${user.uid}`)
-      .get();
-    eventsRef.forEach((doc) => {
-      tempArr.push(doc.data());
-    });
-
-    tempArr.forEach((event) => {
-      event.start = new Date(event.start);
-      if (event.end == null) {
-        event.end = new Date(event.start);
-      } else {
-        event.end = new Date(event.end);
-      }
-    });
-    setEventsArray(tempArr);
-
-    /* axios
-      .get(
-        //`https://socialcalendar123.herokuapp.com/${userID}/${client}/posts` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${userID}/${client}/posts`
-      )
-      .then((response) => {
-        try {
-          let check = response.data[0].posts;
-          if (check == null) {
-            return;
-          } else {
-            let events = response.data[0].posts;
-            console.log(events);
-
-            events.forEach((event) => {
-              event.start = new Date(event.start);
-              if (event.end == null) {
-                event.end = new Date(event.start);
-              } else {
-                event.end = new Date(event.end);
-              }
-            });
-
-            setEventsArray(events);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      });*/
+  const HandleGetSocialPostsFromFirebase = async () => {
+    const socialPostsArr = await GetSocialPostsFromFirebase(user.uid);
+    setEventsArray(socialPostsArr);
   };
 
   const handleClose = () => {
@@ -124,7 +78,7 @@ const SocialPage = (props) => {
             handleClose={handleClose}
             client={client}
             image={image}
-            getEvents={getEvents}
+            getEvents={HandleGetSocialPostsFromFirebase}
             userID={user.uid}
           />
         )}

@@ -21,7 +21,6 @@ import Forgot from "./pages/Auth/Forgot";
 //Context Imports
 import UserContext from "./contexts/UserContext";
 import Settings from "./pages/Settings";
-import Websites from "./pages/Websites";
 import Messages from "./pages/Messages";
 import Billing from "./pages/Billing";
 import SingleConversation from "./pages/SingleConversation";
@@ -32,6 +31,8 @@ import firebase from "./firebase";
 import { CircularProgress, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { useHistory } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -41,13 +42,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function App() {
+function App(props) {
+  const history = useHistory();
   const [user, setUser] = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
   const handleLogout = () => {
     firebase.logout();
+    history.push("/login");
   };
 
   useEffect(() => {
@@ -101,12 +104,7 @@ function App() {
                             </NavIcon>
                             <NavText>Social</NavText>
                           </NavItem>
-                          <NavItem eventKey="websites">
-                            <NavIcon>
-                              <ion-icon name="globe-outline"></ion-icon>
-                            </NavIcon>
-                            <NavText>Websites</NavText>
-                          </NavItem>
+
                           <NavItem eventKey="servers">
                             <NavIcon>
                               <ion-icon name="server-outline"></ion-icon>
@@ -135,7 +133,7 @@ function App() {
                             </NavItem>
                           )}
                           {user && (
-                            <NavItem eventKey="logout" onSelect={handleLogout}>
+                            <NavItem eventKey="login" onSelect={handleLogout}>
                               <NavIcon>
                                 <ion-icon name="log-out-outline"></ion-icon>
                               </NavIcon>
@@ -151,10 +149,7 @@ function App() {
                           path="/social"
                           component={(props) => <SocialPage />}
                         />
-                        <Route
-                          path="/websites"
-                          component={(props) => <Websites />}
-                        />
+
                         <Route
                           path="/settings"
                           component={(props) => <Settings />}

@@ -113,14 +113,11 @@ export default function CheckoutStepper() {
     if (activeStep === 0) {
       const docRef = await firebase.db.collection("leads").doc(email).get();
       //check to make sure they haven't already filled it out
-      if (!docRef.exists) {
-        firebase.db.collection("leads").doc(email).set({
-          name: name,
-          email: email,
-        });
-      } else {
-        return;
-      }
+
+      firebase.db.collection("leads").doc(email).set({
+        name: name,
+        email: email,
+      });
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

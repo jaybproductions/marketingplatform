@@ -1,8 +1,9 @@
 import React from "react";
 import "./Hero.css";
-import Paper from "@material-ui/core/Paper";
+import { Paper, Button, ButtonGroup } from "@material-ui/core";
 import HeroImg from "../../images/heroimage.png";
 import HeroImg2 from "../../images/twilio.png";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   function closeMenuAndGoTo(query) {
@@ -19,7 +20,27 @@ const HeroSection = () => {
   return (
     <>
       <header className="hero container-fluid position-relative border-bottom">
-        <div className="dashboard-button">Hello</div>
+        <div className="dashboard-button">
+          <ButtonGroup disabledElevation size="small">
+            <Button
+              variant="contained"
+              color="primary"
+              to="/login"
+              component={Link}
+            >
+              Login
+            </Button>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              to="/checkout/1"
+              component={Link}
+            >
+              Buy Now
+            </Button>
+          </ButtonGroup>
+        </div>
         <div className="hero__content container flex-grow-1 mx-auto">
           <div className="text-center col-lg-8 px-0 mx-auto mb-5">
             <h2 className="hero__title mb-3">

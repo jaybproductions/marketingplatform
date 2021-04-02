@@ -28,7 +28,7 @@ const Login = (props) => {
     try {
       await firebase.login(email, password);
       toast.success("You are now logged in!");
-      props.history.push("/home");
+      props.history.push("/dashboard");
     } catch (err) {
       toast.error("Unable to login. Please check username/password.");
     }

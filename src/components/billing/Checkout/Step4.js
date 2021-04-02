@@ -7,7 +7,6 @@ import Package from "./Package";
 import { Card, CardContent } from "@material-ui/core";
 import firebase from "../../../../firebase";
 import { useHistory } from "react-router-dom";
-//!TODO to ensure correct customer ID is added to db
 
 //Finalize checkout and process payment through stripe -- create firebase account --
 const Step4 = ({ selectedPackage, email, name, password }) => {
@@ -40,8 +39,8 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
 
     if (status === "success") {
       toast.success("Your Payment has been made..");
-      firebase.login(email, password);
-      history.push("/home");
+
+      history.push("/login");
     } else {
       toast.error("There has been an error.");
     }

@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import firebase from "../firebase";
 import UserContext from "../contexts/UserContext";
-import TwilioSection from "../components/SettingsPageUI/TwilioSection";
+import TwilioSection from "../components/UI/SettingsPageUI/TwilioSection";
+import { GetUserData } from "../utils/API/User/api";
 
 //!Not Finished
 const Settings = () => {
@@ -9,16 +10,13 @@ const Settings = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    getUserData();
+    if (!user) return;
+    HandleGetUserDataFromFirebase();
   }, [user]);
 
-  const getUserData = async () => {
-    if (!user) {
-      console.log("waiting to connect");
-    } else {
-      const docRef = await firebase.db.collection("users").doc(user.uid).get();
-      setUserInfo(docRef.data());
-    }
+  const HandleGetUserDataFromFirebase = async () => {
+    const userData = await GetUserData(user.uid);
+    setUserInfo(userData);
   };
 
   return (

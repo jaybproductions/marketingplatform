@@ -74,7 +74,7 @@ export default function HostingTable() {
           <div className={classes.demo}>
             <List dense={dense}>
               {listArr.map((item, index) => (
-                <>
+                <div key={index}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar>
@@ -86,7 +86,7 @@ export default function HostingTable() {
                       secondary={secondary ? "Secondary text" : item.descr}
                     />
                   </ListItem>
-                </>
+                </div>
               ))}
             </List>
           </div>

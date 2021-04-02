@@ -101,24 +101,17 @@ export default function CheckoutStepper() {
     }
     //if the current step is 0 add the form information to db as a lead
     if (activeStep === 0) {
-      AddLeadToDb();
-    }
+      const docRef = await firebase.db.collection("leads").doc(email).get();
+      //check to make sure they haven't already filled it out
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const AddLeadToDb = async () => {
-    const docRef = await firebase.db.collection("leads").doc(email).get();
-    //check to make sure they haven't already filled it out
-    if (!docRef.exists) {
       firebase.db.collection("leads").doc(email).set({
         name: name,
         email: email,
       });
-    } else {
-      return;
     }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
   };
 
   const handleBack = () => {

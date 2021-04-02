@@ -337,6 +337,18 @@ app.post("/checkout", async (req, res) => {
             blueprintId: blueprintId,
             bundleId: bundleId,
           };
+<<<<<<< HEAD
+=======
+          //!This creates a new static ip -- using frontend to assign that created ip on first load
+          lightsail.allocateStaticIp(
+            {
+              staticIpName: `StaticIp-${user.uid}`,
+            },
+            (err, data) => {
+              console.log(data);
+            }
+          );
+>>>>>>> 9c29fdf766b9277cbbc8c905f481dd8d6e3e8966
 
           lightsail.createInstances(params, function (err, data) {
             if (err) console.log(err, err.stack);
@@ -363,10 +375,6 @@ app.post("/checkout", async (req, res) => {
             awsInstances: [
               {
                 instanceName: `${user.uid}-wordpress`,
-                availabilityZone: availabilityZone,
-                blueprintId: blueprintId,
-                bundleId: bundleId,
-                staticIpAllocated: false,
               },
             ],
           };

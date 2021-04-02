@@ -39,25 +39,23 @@ const ContactList = () => {
   };
 
   useEffect(() => {
+    if (!user) return;
     getContacts();
   }, [user]);
 
   const getContacts = async () => {
-    if (!user) {
-      console.log("waiting to connect...");
-    } else {
-      let tempArr = [];
-      const docRef = await firebase.db
-        .collection("contacts")
-        .where("user", "==", `${user.uid}`)
-        .get();
+    let tempArr = [];
+    const docRef = await firebase.db
+      .collection("contacts")
+      .where("user", "==", `${user.uid}`)
+      .get();
 
-      docRef.docs.forEach((doc) => {
-        tempArr.push(doc.data());
-      });
-      setContacts(tempArr);
-    }
+    docRef.docs.forEach((doc) => {
+      tempArr.push(doc.data());
+    });
+    setContacts(tempArr);
   };
+
   return (
     <div className="contacts">
       <center>

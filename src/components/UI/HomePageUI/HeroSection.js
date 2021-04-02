@@ -19,6 +19,7 @@ const HeroSection = () => {
   return (
     <>
       <header className="hero container-fluid position-relative border-bottom">
+        <div className="dashboard-button">Hello</div>
         <div className="hero__content container flex-grow-1 mx-auto">
           <div className="text-center col-lg-8 px-0 mx-auto mb-5">
             <h2 className="hero__title mb-3">

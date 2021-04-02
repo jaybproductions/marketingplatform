@@ -6,6 +6,11 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import {
+  GetDueDate,
+  GetProductInfo,
+  GetCardInfo,
+} from "../../../utils/API/Stripe/api";
 
 const useStyles = makeStyles({
   root: {
@@ -31,35 +36,24 @@ const SubscriptionCard = ({ customerInfo }) => {
   const [cardInfo, setCardInfo] = useState(null);
 
   useEffect(() => {
-    getSubscriptionItems();
+    if (!customerInfo) return;
+    HandleGetStripeInfoFromApi();
   }, [customerInfo]);
 
-  const getSubscriptionItems = async () => {
-    //check if there is any customerInfo
-    if (customerInfo) {
-      const utcSeconds =
-        customerInfo.subscriptions.data[0].current_period_end * 1000;
-      let d = new Date(utcSeconds);
-      setDue(d.toLocaleDateString());
+  const HandleGetStripeInfoFromApi = async () => {
+    const dueDate = await GetDueDate(customerInfo);
+    setDue(dueDate);
 
-      const productID = customerInfo.subscriptions.data[0].plan.product;
-      const response = await axios.get(
-        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getsubscription/${productID}` ||
-          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getsubscription/${productID}`
-      );
-      console.log(response.data);
-      setProduct(response.data);
-      const cardID = customerInfo.default_source;
-      const customerID = customerInfo.id.toString();
+    const productId = customerInfo.subscriptions.data[0].plan.product;
+    const productData = await GetProductInfo(productId);
+    setProduct(productData);
 
-      const cardResponse = await axios.get(
-        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${customerID}/getcard/${cardID}` ||
-          `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
-      );
+    const cardId = customerInfo.default_source;
+    const customerId = customerInfo.id.toString();
+    const cardInfo = await GetCardInfo(customerId, cardId);
 
-      setCardInfo(cardResponse.data);
-      console.log(cardResponse.data);
-    }
+    setCardInfo(cardInfo);
+    console.log(cardInfo);
   };
 
   return (
@@ -83,14 +77,13 @@ const SubscriptionCard = ({ customerInfo }) => {
                 <Typography className={classes.pos} color="textSecondary">
                   Next Billing Date:
                   {due}
-                  {customerInfo.subscriptions.data[0].days_until_due}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                   Cost: ${customerInfo.subscriptions.data[0].plan.amount / 100}
                 </Typography>
                 {cardInfo && (
                   <Typography className={classes.pos} color="textSecondary">
-                    Card: ***{/*cardInfo.card.last4*/}
+                    Card: ***{cardInfo.card.last4}
                   </Typography>
                 )}
               </>

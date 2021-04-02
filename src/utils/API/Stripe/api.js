@@ -1,30 +1,37 @@
 import axios from "axios";
-export async function GetStripeSubscription(customerInfo) {
-  if (customerInfo) {
-    const utcSeconds =
-      customerInfo.subscriptions.data[0].current_period_end * 1000;
-    let d = new Date(utcSeconds).toLocaleDateString();
 
-    const productID = customerInfo.subscriptions.data[0].plan.product;
-    const response = await axios.get(
-      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getsubscription/${productID}` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getsubscription/${productID}`
-    );
+export async function GetStripeCustomerInfo(customerId) {
+  if (!customerId) return;
+  const response = await axios.get(
+    `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getcustomer/${customerId}` ||
+      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getcustomer/${customerId}`
+  );
 
-    const cardID = customerInfo.default_source;
-    const customerID = customerInfo.id.toString();
+  return response.data;
+}
 
-    const cardResponse = await axios.get(
-      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${customerID}/getcard/${cardID}` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerID}/getcard/${cardID}`
-    );
+export async function GetDueDate(customerInfo) {
+  if (!customerInfo) return;
+  const utcSeconds =
+    customerInfo.subscriptions.data[0].current_period_end * 1000;
+  return new Date(utcSeconds).toLocaleDateString();
+}
 
-    const data = {
-      dueDate: d,
-      productData: response.data,
-      cardData: cardResponse.data,
-    };
+export async function GetProductInfo(productId) {
+  const response = await axios.get(
+    `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/getsubscription/${productId}` ||
+      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/getsubscription/${productId}`
+  );
 
-    return data;
-  }
+  return response.data;
+}
+
+export async function GetCardInfo(customerId, cardId) {
+  if (!customerId || !cardId) return;
+  const cardResponse = await axios.get(
+    `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${customerId}/getcard/${cardId}` ||
+      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${customerId}/getcard/${cardId}`
+  );
+
+  return cardResponse.data;
 }

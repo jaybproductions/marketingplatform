@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-import NewInstanceModal from "../components/UI/BillingUI/NewInstanceModal";
-import AWSInstanceContainer from "../components/UI/BillingUI/AWSInstanceContainer";
+import NewInstanceModal from "../components/UI/ServerUI/NewInstanceModal";
+import AWSInstanceContainer from "../components/UI/ServerUI/AWSInstanceContainer";
 
 //Container for ServerInformation
 const Servers = () => {
@@ -12,7 +12,6 @@ const Servers = () => {
   };
   return (
     <div className="servers">
-      <h4>Current Instances</h4>
       <AWSInstanceContainer />
       <div style={{ padding: "30px" }}>
         {" "}

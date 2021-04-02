@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import firebase from "../../../firebase";
 import UserContext from "../../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
-import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import AWSInstance from "./AWSInstance";
 import { GetAWSInstanceData } from "../../../utils/API/AWS/api";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
+
 const AWSInstanceContainer = () => {
+  const classes = useStyles();
   const { user } = useContext(UserContext);
   const [instances, setInstances] = useState(null);
 
@@ -21,7 +31,12 @@ const AWSInstanceContainer = () => {
     setInstances(awsInstancesData);
   };
   return (
-    <div className="instance" style={{ paddingTop: "10px" }}>
+    <div className="instance" style={{ display: "grid", placeItems: "center" }}>
+      {!instances && (
+        <div className={classes.root}>
+          <CircularProgress />
+        </div>
+      )}
       {instances && (
         <>
           <div style={{ padding: "10px" }}></div>

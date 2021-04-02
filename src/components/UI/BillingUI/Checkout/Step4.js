@@ -5,11 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Package from "./Package";
 import { Card, CardContent } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 //!TODO have user signup using auth and make sure user is added to db before processing payment
 //!TODO to ensure correct customer ID is added to db
 
 //Finalize checkout and process payment through stripe -- create firebase account --
 const Step4 = ({ selectedPackage, email, name, password }) => {
+  let history = useHistory();
   const [token, setToken] = useState(null);
   const [product] = useState({
     name: selectedPackage.number,
@@ -39,6 +41,7 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
     if (status === "success") {
       //!TODO setup creating a new account here once payment has been made
       toast.success("Your Payment has been made..");
+      history.push("/login");
     } else {
       toast.error("There has been an error.");
     }

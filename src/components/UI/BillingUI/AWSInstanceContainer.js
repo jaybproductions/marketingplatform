@@ -5,6 +5,7 @@ import { Card, Button } from "@material-ui/core";
 import axios from "axios";
 import NewInstanceModal from "./NewInstanceModal";
 import AWSInstance from "./AWSInstance";
+import { GetAWSInstanceData } from "../../../utils/API/AWS/api";
 
 const AWSInstanceContainer = () => {
   const { user } = useContext(UserContext);
@@ -12,16 +13,13 @@ const AWSInstanceContainer = () => {
 
   useEffect(() => {
     if (!user) return;
-    getInstances();
+    HandleRetrieveDataFromApi();
   }, [user]);
 
-  const getInstances = async () => {
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    const data = docRef.data();
-    console.log(data);
-    setInstances(data.awsInstances);
+  const HandleRetrieveDataFromApi = async () => {
+    const awsInstancesData = await GetAWSInstanceData(user.uid);
+    setInstances(awsInstancesData);
   };
-
   return (
     <div className="instance" style={{ paddingTop: "10px" }}>
       {instances && (

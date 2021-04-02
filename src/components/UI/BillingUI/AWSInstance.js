@@ -1,89 +1,99 @@
 import React, { useState, useEffect, useContext } from "react";
-import firebase from "../../../firebase";
 import UserContext from "../../../contexts/UserContext";
 import { Card, Button } from "@material-ui/core";
-import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+
 import NewInstanceModal from "./NewInstanceModal";
+
+import {
+  GetSingleAwsInstance,
+  AssignStaticIp,
+} from "../../../utils/API/AWS/api";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 //Display info about thier instance
 const AWSInstance = ({ instance, index, allInstances }) => {
+  const classes = useStyles();
   const { user } = useContext(UserContext);
   const [currentInstance, setCurrentInstance] = useState(null);
   useEffect(() => {
     if (!user) return;
-    getInstances();
+    HandleRetrieveDataFromApi();
   }, [user]);
-  const getInstances = async () => {
-    let tempArr = [];
-    let tempAll = allInstances;
-    const docRef = await firebase.db.collection("users").doc(user.uid).get();
-    const data = docRef.data();
-    tempArr.push(instance);
-    const response = await axios.get(
-      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/aws/getinstance/${instance.instanceName}` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/getinstance/${instance.instanceName}`
-    );
-    const instanceInfo = response.data;
-    setCurrentInstance(instanceInfo.instance);
-    if (
-      instanceInfo.instance.state.name === "running" &&
-      instance.staticIpAllocated === false &&
-      instanceInfo.instance.isStaticIp === false
-    ) {
-      const allocateIPResponse = await axios.post(
-        `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/aws/allocateip` ||
-          "http://localhost:5001/marketingplatform-3b5c7/us-central1/app/aws/allocateip",
-        {
-          instanceName: instanceInfo.instance.name,
-          staticIpName: `StaticIp-${user.uid}`,
-        }
-      );
-      console.log(allocateIPResponse.status);
-      const updateRef = firebase.db.collection("users").doc(user.uid);
-      const objIndex = tempArr.findIndex(
-        (obj) => obj.staticIpAllocated === false
-      );
-      tempArr[objIndex].staticIpAllocated = true;
-      const objToRemoveIndex = tempAll.findIndex(
-        (obj) => obj.instanceName === instance.instanceName
-      );
 
-      tempAll.splice(objToRemoveIndex, 1, ...tempArr);
+  useEffect(() => {
+    if (!currentInstance) return;
+    HandleAssignStaticIp();
+  }, [currentInstance]);
 
-      updateRef.update({
-        awsInstances: tempAll,
-      });
-    }
+  const HandleRetrieveDataFromApi = async () => {
+    const awsInstance = await GetSingleAwsInstance(instance);
+    setCurrentInstance(awsInstance.instance);
+  };
+
+  const HandleAssignStaticIp = async () => {
+    const AssignStaticIpCall = await AssignStaticIp(user.uid, currentInstance);
+    return AssignStaticIpCall;
   };
 
   return (
     <div className="instance" style={{ paddingTop: "10px" }}>
       {instance && (
         <>
-          <div style={{ padding: "10px" }} />
-          <Card>
-            <div
-              className="instance-data"
-              style={{ padding: "10px", height: "100%", textAlign: "center" }}
-            >
-              <h5>{instance.instanceName}</h5>
-              <ion-icon
-                name="server-outline"
-                style={{ fontSize: "60px" }}
-              ></ion-icon>{" "}
-              <br />
-              <b>Public IP Address:</b>{" "}
-              {currentInstance && <>{currentInstance.publicIpAddress}</>}
-              <br />
-              <b>Region: </b>
-              {instance.availabilityZone} <br />
-              {currentInstance && (
+          {currentInstance && (
+            <>
+              {currentInstance.state.name !== "running" ||
+              !currentInstance.isStaticIp ? (
+                <div className={classes.root}>
+                  <LinearProgress />
+                  Please wait while we setup your instance.
+                </div>
+              ) : (
                 <>
-                  <b> Current Status:</b> {currentInstance.state.name}
+                  {" "}
+                  <div style={{ padding: "10px" }} />
+                  <Card>
+                    <div
+                      className="instance-data"
+                      style={{
+                        padding: "10px",
+                        height: "100%",
+                        textAlign: "center",
+                      }}
+                    >
+                      <h5>{instance.instanceName}</h5>
+                      <ion-icon
+                        name="server-outline"
+                        style={{ fontSize: "60px" }}
+                      ></ion-icon>{" "}
+                      <br />
+                      <b>Public IP Address:</b>{" "}
+                      {currentInstance && (
+                        <>{currentInstance.publicIpAddress}</>
+                      )}
+                      <br />
+                      <b>Region: </b>
+                      {instance.availabilityZone} <br />
+                      {currentInstance && (
+                        <>
+                          <b> Current Status:</b> {currentInstance.state.name}
+                        </>
+                      )}
+                    </div>
+                  </Card>
                 </>
               )}
-            </div>
-          </Card>
+            </>
+          )}
         </>
       )}
     </div>

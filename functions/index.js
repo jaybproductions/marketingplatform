@@ -337,7 +337,7 @@ app.post("/checkout", async (req, res) => {
             blueprintId: blueprintId,
             bundleId: bundleId,
           };
-          //TODO Static IP address creation not working move into new route to check for bool
+          //!This creates a new static ip -- using frontend to assign that created ip on first load
           lightsail.allocateStaticIp(
             {
               staticIpName: `StaticIp-${user.uid}`,
@@ -372,10 +372,6 @@ app.post("/checkout", async (req, res) => {
             awsInstances: [
               {
                 instanceName: `${user.uid}-wordpress`,
-                availabilityZone: availabilityZone,
-                blueprintId: blueprintId,
-                bundleId: bundleId,
-                staticIpAllocated: false,
               },
             ],
           };

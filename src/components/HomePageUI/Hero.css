@@ -92,8 +92,8 @@ button:focus {
 
 .dashboard-button {
   padding-top: 10px;
-  margin-left: auto;
-  margin-right: 0;
+  width: 20%;
+  display: inline-block;
 }
 
 /* Put your blocks here */
@@ -248,6 +248,43 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.links {
+  padding-top: 20px;
+  width: 70%;
+  margin-left: 90px;
+
+  display: inline-block;
+}
+
+.links > a {
+  margin-left: 30px;
+  display: inline-block;
+  position: relative;
+  color: #0087ca;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.links > a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.links > a:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #0087ca;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
 }
 
 .logos__img {

@@ -20,26 +20,67 @@ const HeroSection = () => {
   return (
     <>
       <header className="hero container-fluid position-relative border-bottom">
-        <div className="dashboard-button">
-          <ButtonGroup disabledElevation size="small">
-            <Button
-              variant="contained"
-              color="primary"
-              to="/login"
-              component={Link}
+        <div className="header-container">
+          {" "}
+          <div className="links">
+            <a
+              onClick={() =>
+                document
+                  .getElementById("why-heading")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
             >
-              Login
-            </Button>
+              Why Us
+            </a>
+            <a
+              onClick={() =>
+                document
+                  .getElementById("pricing")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Pricing
+            </a>
+            <a
+              onClick={() =>
+                document
+                  .getElementById("faq")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              FAQ
+            </a>
+            <a
+              onClick={() =>
+                document
+                  .getElementById("contact")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Contact
+            </a>
+          </div>
+          <div className="dashboard-button">
+            <ButtonGroup disabledElevation={true} size="small">
+              <Button
+                variant="contained"
+                color="primary"
+                to="/login"
+                component={Link}
+              >
+                Login
+              </Button>
 
-            <Button
-              variant="contained"
-              color="secondary"
-              to="/checkout/1"
-              component={Link}
-            >
-              Buy Now
-            </Button>
-          </ButtonGroup>
+              <Button
+                variant="contained"
+                color="secondary"
+                to="/checkout/1"
+                component={Link}
+              >
+                Buy Now
+              </Button>
+            </ButtonGroup>
+          </div>
         </div>
         <div className="hero__content container flex-grow-1 mx-auto">
           <div className="text-center col-lg-8 px-0 mx-auto mb-5">
@@ -56,7 +97,14 @@ const HeroSection = () => {
             </p>
 
             <div>
-              <a className="btn btn-primary" href="#why-heading">
+              <a
+                className="btn btn-primary"
+                onClick={() =>
+                  document
+                    .getElementById("why-heading")
+                    .scrollIntoView({ behavior: "smooth" })
+                }
+              >
                 See Features
               </a>
             </div>

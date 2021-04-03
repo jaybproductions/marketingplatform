@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { TextField, Button } from "@material-ui/core";
 import useForm from "../../hooks/useForm";
 import validatePasswordReset from "../../validators/validatePasswordReset";
 import firebase from "../../firebase";
@@ -33,29 +33,33 @@ const Forgot = (props) => {
   }
 
   return (
-    <div className="forgot">
-      <h1 style={{ paddingTop: "10px" }}>BT Console Forgot Password</h1>
+    <div
+      className="forgot"
+      style={{ display: "grid", placeItems: "center", paddingTop: "50px" }}
+    >
+      <h1>Forgot Password</h1>
 
       <form lines="full">
-        <label position="floating">Email</label>
-        <input
+        <TextField
           name="email"
+          label="Email"
           type="text"
           required
           value={values.email}
           onChange={handleChange}
-        ></input>
+        />
+        <div style={{ paddingTop: "20px" }} />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          expand="block"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          Get Reset Link
+        </Button>
       </form>
-
-      <button
-        type="submit"
-        color="primary"
-        expand="block"
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-      >
-        Get Reset Link
-      </button>
     </div>
   );
 };

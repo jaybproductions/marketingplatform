@@ -28,7 +28,7 @@ const advancedFeatures = [
 //Pricing Table Container
 const PricingContainer = () => {
   return (
-    <div style={{ paddingTop: "10px" }}>
+    <div style={{ paddingTop: "10px" }} id="pricing">
       <h1>Pricing</h1>
       <Grid container spacing={4} justify="center">
         <Grid item xs={12} sm={3} md={3} lg={3}>

@@ -11,6 +11,9 @@
   padding-left: 100px;
   padding-right: 20px;
 }
+.loading {
+  padding-left: -100px;
+}
 
 #why-heading {
   width: 100%;
@@ -89,7 +92,7 @@ html {
 }
 
 .recieved {
-  background-color: lightgray;
+  background-color: #303033;
   margin: auto;
   width: 40%;
   border-radius: 25px;

@@ -17,6 +17,7 @@ import SocialPage from "./pages/Social";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Forgot from "./pages/Auth/Forgot";
+import Dashboard from "./pages/Dashboard";
 
 //Context Imports
 import UserContext from "./contexts/UserContext";
@@ -30,6 +31,7 @@ import firebase from "./firebase";
 
 import { CircularProgress, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import ReactLoading from "react-loading";
 
 import { useHistory } from "react-router-dom";
 
@@ -56,7 +58,7 @@ function App(props) {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
   }, []);
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -65,12 +67,18 @@ function App(props) {
           <>
             <div className="content">
               {isLoading ? (
-                <div style={{ display: "grid", placeItems: "center" }}>
-                  <CircularProgress />
+                <div
+                  className="loading"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    paddingRight: "100px",
+                  }}
+                >
+                  <ReactLoading type="bars" color="white" />
                   <br />
-                  <Typography variant="h3" component="h3">
-                    Loading...
-                  </Typography>
                 </div>
               ) : (
                 <Route
@@ -146,7 +154,7 @@ function App(props) {
                         <Route path="/" exact component={(props) => <Home />} />
                         <Route
                           path="/dashboard"
-                          component={(props) => <Home />}
+                          component={(props) => <Dashboard />}
                         />
                         <Route
                           path="/social"

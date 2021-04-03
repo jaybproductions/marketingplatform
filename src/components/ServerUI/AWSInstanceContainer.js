@@ -20,10 +20,14 @@ const AWSInstanceContainer = () => {
   const classes = useStyles();
   const { user } = useContext(UserContext);
   const [instances, setInstances] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
     HandleRetrieveDataFromApi();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }, [user]);
 
   const HandleRetrieveDataFromApi = async () => {
@@ -32,10 +36,10 @@ const AWSInstanceContainer = () => {
   };
   return (
     <div className="instance" style={{ display: "grid", placeItems: "center" }}>
-      {!instances && (
+      {isLoading && (
         <div className={classes.root}>
           <LinearProgress />
-          Please wait while we setup your instance.
+          Loading Instances...
         </div>
       )}
       {instances && (

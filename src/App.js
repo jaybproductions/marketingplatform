@@ -18,8 +18,6 @@ import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Forgot from "./pages/Auth/Forgot";
 import Dashboard from "./pages/Dashboard";
-
-//Context Imports
 import UserContext from "./contexts/UserContext";
 import Settings from "./pages/Settings";
 import Messages from "./pages/Messages";

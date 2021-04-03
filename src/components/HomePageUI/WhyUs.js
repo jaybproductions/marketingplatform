@@ -65,10 +65,16 @@ export default function WhyUs() {
   return (
     <>
       <div
-        className="heading"
         id="why-heading"
-        style={{ paddingBottom: "100px" }}
-      ></div>
+        style={{
+          paddingBottom: "50px",
+          paddingTop: "25px",
+        }}
+      >
+        <Typography variant="h4" component="h4">
+          Why us?
+        </Typography>
+      </div>
       <div
         className="why-us"
         id="why-us"
@@ -81,7 +87,7 @@ export default function WhyUs() {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  aria-label="simple tabs example"
+                  aria-label="features"
                   centered
                   style={{ backgroundColor: "black" }}
                 >

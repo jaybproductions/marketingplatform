@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.css";
-import { Paper, Button, ButtonGroup } from "@material-ui/core";
+import { Paper, Button, ButtonGroup, Typography } from "@material-ui/core";
 import HeroImg from "../../images/heroimage.png";
 import HeroImg2 from "../../images/twilio.png";
 import { Link } from "react-router-dom";
@@ -62,7 +62,7 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="block-24">
-            <div className="container">
+            <div className="logo-container">
               <div className="logos">
                 <img
                   className="logos__img"

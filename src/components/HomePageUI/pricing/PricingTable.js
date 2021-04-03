@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    minWidth: 200,
+    height: 250,
   },
   bullet: {
     display: "inline-block",
@@ -38,12 +39,10 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
             {title}
           </Typography>
           <Typography variant="span" component="h2">
-            <div style={{ margin: "auto", alignItems: "left" }}>
+            <div>
               <ul style={{ textAlign: "left" }}>
                 {features.map((feature, index) => (
-                  <ul key={index}>
-                    <li style={{ fontSize: "16px" }}>{feature}</li>
-                  </ul>
+                  <li style={{ fontSize: "16px" }}>{feature}</li>
                 ))}
               </ul>
             </div>
@@ -52,13 +51,15 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
             className={classes.pos}
             color="textSecondary"
           ></Typography>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="h5">
             {price}
           </Typography>
         </CardContent>
         <CardActions>
           <Link to={link} style={{ textDecoration: "none" }}>
-            <Button size="small">{buttonText}</Button>
+            <Button size="small" variant="contained" color="primary">
+              {buttonText}
+            </Button>
           </Link>
         </CardActions>
       </Card>

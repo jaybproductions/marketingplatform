@@ -36,9 +36,3 @@
 .goo:focus {
   outline: 0;
 }
-
-body {
-  padding: 7.5vh 100px 0 100px;
-  font-family: var(--font);
-  background: var(--color-bg);
-}

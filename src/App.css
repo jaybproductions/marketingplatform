@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .title {
   text-align: left;
   float: left;
@@ -9,6 +5,23 @@
   width: 50%;
 
   padding: 10px;
+}
+
+.content {
+  padding-left: 100px;
+  padding-right: 20px;
+}
+
+#why-heading {
+  width: 100%;
+  margin: 0 auto;
+  background: #085078; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #85d8ce,
+    #085078
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #85d8ce, #085078);
 }
 
 .package-table a:hover {
@@ -48,11 +61,6 @@
 body,
 html {
   height: 100%;
-}
-
-.why-us {
-  width: 85%;
-  margin: auto;
 }
 
 .heading {
@@ -101,4 +109,25 @@ html {
 .checkout {
   margin: auto;
   width: 70%;
+}
+
+.why-us {
+  width: 100%;
+  margin: 0 auto;
+  background: #085078; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #85d8ce,
+    #085078
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #85d8ce,
+    #085078
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.step-2 {
+  width: 100%;
+  margin: auto;
 }

@@ -5,14 +5,14 @@
   --secondary-invert: #fff;
 
   /* DEFAULT COLOR OF TEXTS */
-  --text-primary: #0a1f44;
+  --text-primary: #fff;
 
   /* FOR BUTTONS & INPUTS */
   --elements-roundness: 10rem;
 
   --space-between-blocks: 5.3rem;
   /* for mobiles */
-  --space-between-blocks-small-screens: 3rem;
+  --space-between-blocks-small-screens: 1rem;
 }
 
 body {
@@ -99,33 +99,13 @@ button:focus {
 /* Put your blocks here */
 .hero {
   --hero-nav-height: 100px;
-  --block-background: white;
+  --block-background: #303030;
   --block-text-color: var(--text-primary);
   background: var(--block-background);
   color: var(--block-text-color);
   position: relative;
   display: flex;
   flex-direction: column;
-}
-
-.hero-nav {
-  margin: 0 -1rem;
-  width: 100%;
-  height: var(--hero-nav-height);
-  display: flex;
-  align-items: center;
-  z-index: 2;
-}
-
-.hero-nav__item {
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-@media (min-width: 992px) {
-  .hero-nav__item {
-    margin: 0 1rem;
-  }
 }
 
 @media (min-width: 992px) {
@@ -150,14 +130,14 @@ button:focus {
 
 .hero__content {
   text-align: initial;
-
-  padding-bottom: 3rem;
+  width: 100vw;
+  padding-bottom: 0rem;
 }
 
 @media (min-width: 992px) {
   .hero__content {
     padding-top: 4rem;
-    padding-bottom: 5rem;
+    padding-bottom: 0rem;
   }
 }
 
@@ -179,7 +159,7 @@ button:focus {
   }
 
   .hero__paragraph {
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
 }
@@ -198,7 +178,7 @@ button:focus {
 
   .hero__paragraph {
     font-size: 1.5rem;
-    width: 70%;
+    width: 100%;
   }
 }
 
@@ -251,39 +231,32 @@ button:focus {
   color: var(--block-text-color);
 }
 
-.block__pre-title {
-  color: var(--primary);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.block__title {
-  font-size: 2rem;
-  font-weight: 900;
-  line-height: 1.4;
-}
-
 @media (min-width: 992px) {
   .block__title {
-    font-size: 2.5rem;
+    font-size: 1rem;
   }
 }
 
-.block__paragraph {
-  font-size: 1.1rem;
-  line-height: 1.5;
-  opacity: 0.9;
+.logo-container {
+  display: grid;
+  place-items: center;
+  border-radius: 180px;
+  width: 100%;
 }
 
 .logos {
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+}
+
+.logos__img {
+  max-width: 150px;
 }
 
 @media (min-width: 768px) {
   .logos__img {
-    max-width: 30%;
+    max-width: 200px;
   }
 }
 
@@ -291,12 +264,5 @@ button:focus {
   .logos__img {
     max-width: 150px;
     padding: 0;
-    margin: 1rem;
   }
-}
-
-.logos__img:focus,
-.logos__img:hover {
-  filter: grayscale(0);
-  opacity: 1;
 }

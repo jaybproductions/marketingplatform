@@ -9,11 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import Package from "./Package";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-
-    padding: "20px",
-  },
   paper: {
     height: 250,
     width: 200,
@@ -34,7 +29,7 @@ const basicFeatures = [
 const intermediateFeatures = [
   "Ram: 2GB",
   "CPU: 1 vCPU",
-  "Storage: 60GBGB SSD",
+  "Storage: 60GB SSD",
   "Bandwidth: 3TB/m",
 ];
 
@@ -46,94 +41,94 @@ const advancedFeatures = [
 ];
 
 const PackageContainer = ({ selectedPackage, setSelectedPackage }) => {
-  const [spacing, setSpacing] = React.useState(10);
   const classes = useStyles();
   return (
-    <Grid container className={classes.root} spacing={2}>
-      <h3>Please choose a server package...</h3>
-      <Grid container spacing={spacing} justify="center">
-        <Grid item md={3}>
-          <Paper
-            className={classes.paper}
-            style={
-              selectedPackage.number === "1"
-                ? {
-                    borderStyle: "solid",
-                    borderWidth: "5px",
-                    borderColor: "blue",
-                  }
-                : { borderStyle: "solid", borderWidth: "0px" }
-            }
-          >
-            {" "}
-            <Package
-              title="Basic Package"
-              features={basicFeatures}
-              price={10}
-              link=""
-              buttonText="Choose"
-              packageNum="1"
-              selectedPackage={selectedPackage}
-              setSelectedPackage={setSelectedPackage}
-              blueprintId="wordpress"
-              bundleId="nano_2_0"
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={3}>
-          <Paper
-            className={classes.paper}
-            style={
-              selectedPackage.number === "2"
-                ? {
-                    borderStyle: "solid",
-                    borderWidth: "5px",
-                    borderColor: "blue",
-                  }
-                : { borderStyle: "solid", borderWidth: "0px" }
-            }
-          >
-            <Package
-              title="Intermediate Package"
-              features={intermediateFeatures}
-              price={25}
-              link=""
-              buttonText="Choose"
-              packageNum="2"
-              selectedPackage={selectedPackage}
-              setSelectedPackage={setSelectedPackage}
-              blueprintId="wordpress"
-              bundleId="small_2_0"
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={3}>
-          <Paper
-            className={classes.paper}
-            style={
-              selectedPackage.number === "3"
-                ? {
-                    borderStyle: "solid",
-                    borderWidth: "5px",
-                    borderColor: "blue",
-                  }
-                : { borderStyle: "solid", borderWidth: "0px" }
-            }
-          >
-            <Package
-              title="Advanced Package"
-              features={advancedFeatures}
-              price={50}
-              link=""
-              buttonText="Choose"
-              packageNum="3"
-              selectedPackage={selectedPackage}
-              setSelectedPackage={setSelectedPackage}
-              blueprintId="wordpress"
-              bundleId="medium_2_0"
-            />
-          </Paper>
-        </Grid>
+    <Grid container spacing={3} justify="center">
+      <Grid item xs={12}>
+        <h3>Please choose a server package...</h3>
+      </Grid>
+
+      <Grid item md={3}>
+        <Paper
+          className={classes.paper}
+          style={
+            selectedPackage.number === "1"
+              ? {
+                  borderStyle: "solid",
+                  borderWidth: "5px",
+                  borderColor: "blue",
+                }
+              : { borderStyle: "solid", borderWidth: "0px" }
+          }
+        >
+          {" "}
+          <Package
+            title="Basic Package"
+            features={basicFeatures}
+            price={10}
+            link=""
+            buttonText="Choose"
+            packageNum="1"
+            selectedPackage={selectedPackage}
+            setSelectedPackage={setSelectedPackage}
+            blueprintId="wordpress"
+            bundleId="nano_2_0"
+          />
+        </Paper>
+      </Grid>
+      <Grid item md={3}>
+        <Paper
+          className={classes.paper}
+          style={
+            selectedPackage.number === "2"
+              ? {
+                  borderStyle: "solid",
+                  borderWidth: "5px",
+                  borderColor: "blue",
+                }
+              : { borderStyle: "solid", borderWidth: "0px" }
+          }
+        >
+          <Package
+            title="Intermediate Package"
+            features={intermediateFeatures}
+            price={25}
+            link=""
+            buttonText="Choose"
+            packageNum="2"
+            selectedPackage={selectedPackage}
+            setSelectedPackage={setSelectedPackage}
+            blueprintId="wordpress"
+            bundleId="small_2_0"
+          />
+        </Paper>
+      </Grid>
+      <Grid item md={3}>
+        <Paper
+          className={classes.paper}
+          style={
+            selectedPackage.number === "3"
+              ? {
+                  borderStyle: "solid",
+                  borderWidth: "5px",
+                  borderColor: "blue",
+                }
+              : { borderStyle: "solid", borderWidth: "0px" }
+          }
+        >
+          <Package
+            title="Advanced Package"
+            features={advancedFeatures}
+            price={50}
+            link=""
+            buttonText="Choose"
+            packageNum="3"
+            selectedPackage={selectedPackage}
+            setSelectedPackage={setSelectedPackage}
+            blueprintId="wordpress"
+            bundleId="medium_2_0"
+          />
+        </Paper>
       </Grid>
     </Grid>
   );

@@ -12,6 +12,7 @@ import Step4 from "./Step4";
 import firebase from "../../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +45,7 @@ export default function CheckoutStepper() {
   const [password, setPassword] = useState("");
   const [selectedPackage, setSelectedPackage] = useState(1);
   const steps = getSteps();
+  const history = useHistory();
 
   function getStepContent(step) {
     switch (step) {
@@ -115,6 +117,7 @@ export default function CheckoutStepper() {
   };
 
   const handleBack = () => {
+    if (activeStep === 0) return history.push("/home");
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -160,11 +163,7 @@ export default function CheckoutStepper() {
               {getStepContent(activeStep)}
             </Typography>
             <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}
-              >
+              <Button onClick={handleBack} className={classes.button}>
                 Back
               </Button>
               <Button

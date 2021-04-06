@@ -92,8 +92,7 @@ button:focus {
 
 .dashboard-button {
   padding-top: 10px;
-  width: 20%;
-  display: inline-block;
+  width: 100%;
 }
 
 /* Put your blocks here */
@@ -245,6 +244,14 @@ button:focus {
   width: 100%;
 }
 
+.header-container {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  grid-template-columns: 70%, 30%;
+  width: 100%;
+}
+
 .logos {
   display: flex;
   align-items: center;
@@ -253,10 +260,9 @@ button:focus {
 
 .links {
   padding-top: 20px;
-  width: 70%;
-  margin-left: 90px;
+  width: 100%;
 
-  display: inline-block;
+  word-spacing: 5px;
 }
 
 .links > a {

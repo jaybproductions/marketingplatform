@@ -109,18 +109,16 @@ const HeroSection = () => {
               </a>
             </div>
           </div>
-          <div className="block-24">
-            <div className="logo-container">
-              <div className="logos">
-                <img
-                  className="logos__img"
-                  src={HeroImg}
-                  width="100%"
-                  height="100%"
-                />
-                <img className="logos__img" src={HeroImg2} />
-              </div>
-            </div>
+        </div>
+        <div className="logo-container">
+          <div className="logos">
+            <img
+              className="logos__img"
+              src={HeroImg}
+              width="100%"
+              height="100%"
+            />
+            <img className="logos__img" src={HeroImg2} />
           </div>
         </div>
       </header>

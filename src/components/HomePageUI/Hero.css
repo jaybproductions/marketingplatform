@@ -226,6 +226,7 @@ button:focus {
 
 .block-24 {
   --block-background: white;
+  width: 100%;
   --block-text-color: var(--text-primary);
   background: var(--block-background);
   color: var(--block-text-color);

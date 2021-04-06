@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import EventModal from "../components/social/EventModal";
 import AddEventModal from "../components/social/AddEventModal";
 import UserContext from "../contexts/UserContext";
-import firebase from "../firebase";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { GetSocialPostsFromFirebase } from "../utils/Database/Social/firebase";
+import { GetSocialPostsFromFirebase } from "../utils/Database/Social/GetSocialPostsFromFirebase";
 
 const SocialPage = (props) => {
   const { user } = useContext(UserContext);

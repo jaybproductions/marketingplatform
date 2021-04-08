@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent, Button, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 function ServersCard({ user }) {
   console.log(user);
@@ -11,7 +12,19 @@ function ServersCard({ user }) {
             Your Current Servers
           </Grid>
           <Grid item xs={12}>
-            You have X servers active
+            {user && (
+              <> You have {user.awsInstances.length} server(s) active </>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              to="/servers"
+              component={Link}
+            >
+              Go to Servers
+            </Button>
           </Grid>
         </Grid>
       </CardContent>

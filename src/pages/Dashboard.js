@@ -31,10 +31,10 @@ const Dashboard = () => {
       <h4>Hello {userData && userData.name},</h4>
       <Grid container justify="center" spacing={2}>
         <Grid item xs={12} md={3} lg={3}>
-          <ServersCard user={user.uid} />
+          <ServersCard user={userData} />
         </Grid>
         <Grid item xs={12} md={3} lg={3}>
-          <SocialCard />
+          <SocialCard user={user.uid} />
         </Grid>
         <Grid item xs={12} md={3} lg={3}>
           <TextingCard />

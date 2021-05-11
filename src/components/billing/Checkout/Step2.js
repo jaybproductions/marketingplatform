@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Checkbox, TextField } from "@material-ui/core";
 import PackageContainer from "./PackageContainer";
+import "../../../css/Checkout.css";
 
 //Gathering basic information about their domain and choosing a package for aws instance
 const Step2 = ({ selectedPackage, setSelectedPackage }) => {

@@ -13,10 +13,13 @@ import firebase from "../../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
+import "../../../css/Checkout.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    display: "grid",
+    placeItems: "center",
   },
   button: {
     marginRight: theme.spacing(1),
@@ -127,6 +130,11 @@ export default function CheckoutStepper() {
 
   return (
     <div className={classes.root}>
+      <div className="checkout-heading" style={{ padding: "50px" }}>
+        <h1 style={{ fontSize: "20px" }}>
+          Please complete the steps below to finish the checkout process.
+        </h1>
+      </div>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -162,7 +170,7 @@ export default function CheckoutStepper() {
             <Typography className={classes.instructions}>
               {getStepContent(activeStep)}
             </Typography>
-            <div>
+            <div className="checkout-buttons">
               <Button onClick={handleBack} className={classes.button}>
                 Back
               </Button>

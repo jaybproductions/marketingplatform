@@ -248,8 +248,7 @@ button:focus {
   display: grid;
   place-items: center;
   grid-auto-flow: column;
-  grid-template-columns: 70%, 30%;
-  width: 100%;
+  grid-template-columns: 90% 10%;
 }
 
 .logos {
@@ -260,7 +259,8 @@ button:focus {
 
 .links {
   padding-top: 20px;
-  width: 100%;
+  width: 50%;
+  margin: auto;
 
   word-spacing: 5px;
 }

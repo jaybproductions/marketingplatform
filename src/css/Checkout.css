@@ -1,0 +1,16 @@
+.step-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-2 {
+  width: 75%;
+  margin: auto;
+}
+
+.checkout-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

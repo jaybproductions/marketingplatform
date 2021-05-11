@@ -1,22 +1,11 @@
 import React from "react";
-import "./Hero.css";
+import "../../css/Hero.css";
 import { Paper, Button, ButtonGroup, Typography } from "@material-ui/core";
 import HeroImg from "../../images/heroimage.png";
 import HeroImg2 from "../../images/twilio.png";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
-  function closeMenuAndGoTo(query) {
-    document.querySelector("#hero-menu").classList.toggle("ft-menu--js-show");
-    setTimeout(() => {
-      const element = document.querySelector(query);
-      window.scrollTo({
-        top: element.getBoundingClientRect().top,
-        behavior: "smooth",
-      });
-    }, 250);
-  }
-
   return (
     <>
       <header className="hero container-fluid position-relative border-bottom">
@@ -85,7 +74,7 @@ const HeroSection = () => {
         <div className="hero__content container flex-grow-1 mx-auto">
           <div className="text-center col-lg-8 px-0 mx-auto mb-5">
             <h2 className="hero__title mb-3">
-              <span className="highlight">Wordpress Hosting</span>
+              <span className="highlight">Cloud Hosting</span>
               <br />
               The effortless way.
             </h2>

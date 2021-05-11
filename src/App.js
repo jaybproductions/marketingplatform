@@ -26,7 +26,7 @@ import SingleConversation from "./pages/SingleConversation";
 import Checkout from "./pages/Checkout";
 import Servers from "./pages/Servers";
 import firebase from "./firebase";
-
+import CheckoutContext from "./contexts/CheckoutContext";
 import { CircularProgress, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ReactLoading from "react-loading";
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 function App(props) {
   const history = useHistory();
   const [user, setUser] = useAuth();
+  const [checkoutInfo, setCheckoutInfo] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const classes = useStyles();
 
@@ -200,14 +201,16 @@ function App(props) {
           </>
         ) : (
           <>
-            <Route path="/" exact component={(props) => <Home />} />
-            <Route path="/home" component={(props) => <Home />} />
-            <Route path="/login" component={(props) => <Login />} />
-            <Route path="/forgot" component={(props) => <Forgot />} />
-            <Route
-              path="/checkout/:packageNum"
-              component={(props) => <Checkout />}
-            />
+            <CheckoutContext.Provider value={{ checkoutInfo, setCheckoutInfo }}>
+              <Route path="/" exact component={(props) => <Home />} />
+              <Route path="/home" component={(props) => <Home />} />
+              <Route path="/login" component={(props) => <Login />} />
+              <Route path="/forgot" component={(props) => <Forgot />} />
+              <Route
+                path="/checkout/:packageNum"
+                component={(props) => <Checkout />}
+              />
+            </CheckoutContext.Provider>
           </>
         )}
       </Switch>

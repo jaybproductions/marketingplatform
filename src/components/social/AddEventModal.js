@@ -63,8 +63,8 @@ const AddEventModal = ({
 
     addFormData.append("post", JSON.stringify(newPost));
     axios.put(
-      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/${userID}/add` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/${userID}/add`,
+      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/social/${userID}/add` ||
+        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/social/${userID}/add`,
       addFormData,
       {}
     );

@@ -15,7 +15,7 @@
     "clsx": "^1.1.1",
     "firebase": "^8.2.6",
     "moment": "^2.29.1",
-    "node-sass": "^5.0.0",
+    "node-sass": "^6.0.0",
     "react": "^17.0.2",
     "react-big-calendar": "^0.31.0",
     "react-dom": "^17.0.1",
@@ -24,7 +24,7 @@
     "react-scripts": "4.0.2",
     "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^7.0.3",
-    "sass": "^1.32.8",
+    "sass": "^1.32.13",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

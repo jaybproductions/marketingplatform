@@ -1,0 +1,12 @@
+.login {
+  width: 50%;
+  margin: auto;
+  padding-top: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .login {
+    width: 90%;
+    margin: auto;
+  }
+}

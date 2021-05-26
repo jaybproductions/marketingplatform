@@ -129,9 +129,7 @@ router.post("/checkout", async (req, res) => {
       }
     );
     status = "success";
-    //TODO create aws instance based on information provided
-    //TODO make sure aws information is added correctly into db
-    //Account for future ability to add multiple instances
+
     if (status === "success") {
       firebase
         .auth()
@@ -143,9 +141,6 @@ router.post("/checkout", async (req, res) => {
           disabled: false,
         })
         .then((user) => {
-          //!This creates a new static ip -- using frontend to assign that created ip on first load
-          //allocate ip
-          //create new instance
           // See the UserRecord reference doc for the contents of userRecord.
           console.log("Successfully created new user:", user.uid);
           userId = user.uid;

@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   root: {
     minWidth: 200,
     height: 250,
-    padding: "20px",
   },
   bullet: {
     display: "inline-block",

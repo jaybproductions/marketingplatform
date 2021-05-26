@@ -16,6 +16,7 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
     price: selectedPackage.price,
   });
 
+  //this function handles the checkout process and creating a new user in fb - returns userid
   const handleToken = async (token, addresses) => {
     const response = await axios.post(
       `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/stripe/checkout` ||
@@ -32,13 +33,14 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
         availabilityZone: "us-east-1a",
         packageNum: selectedPackage.number,
       }
+
+      //!after checkout handle create instance // allocate static ip from aws routes
     );
 
-    const { status } = response.data;
+    const { status, userId } = response.data;
 
     if (status === "success") {
       toast.success("Your Payment has been made..");
-
       history.push("/login");
     } else {
       toast.error("There has been an error.");

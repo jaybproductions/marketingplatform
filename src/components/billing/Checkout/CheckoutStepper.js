@@ -17,7 +17,7 @@ import "../../../css/Checkout.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: "100vw",
     display: "grid",
     placeItems: "center",
   },

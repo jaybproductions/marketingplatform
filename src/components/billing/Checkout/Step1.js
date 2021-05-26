@@ -24,6 +24,7 @@ const Step1 = ({ name, setName, email, setEmail, password, setPassword }) => {
             label="Name"
             variant="outlined"
             value={name}
+            fullWidth
             onChange={(e) => setName(e.target.value)}
           />
           <br />

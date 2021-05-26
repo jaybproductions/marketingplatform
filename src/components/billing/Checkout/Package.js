@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
 
   title: {
-    fontSize: 14,
+    fontSize: 18,
   },
   pos: {
     marginBottom: 12,

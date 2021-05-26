@@ -67,11 +67,11 @@ export default function WhyUs() {
       <div
         id="why-heading"
         style={{
-          paddingBottom: "50px",
+          paddingBottom: "10px",
           paddingTop: "25px",
         }}
       >
-        <Typography variant="h4" component="h4">
+        <Typography variant="h4" component="h4" style={{ color: "white" }}>
           Why us?
         </Typography>
       </div>

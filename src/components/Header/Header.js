@@ -259,7 +259,6 @@ const Header = (props) => {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
         {props.component}
       </main>
     </div>

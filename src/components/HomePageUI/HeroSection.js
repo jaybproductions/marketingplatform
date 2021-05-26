@@ -50,25 +50,28 @@ const HeroSection = () => {
             </a>
           </div>
           <div className="dashboard-button">
-            <ButtonGroup disabledElevation={true} size="small">
+            <div className="login-button">
               <Button
                 variant="contained"
                 color="primary"
                 to="/login"
                 component={Link}
+                size="small"
               >
                 Login
               </Button>
-
+            </div>
+            <div className="signup-button">
               <Button
                 variant="contained"
                 color="secondary"
                 to="/checkout/1"
                 component={Link}
+                size="small"
               >
                 Buy Now
               </Button>
-            </ButtonGroup>
+            </div>
           </div>
         </div>
         <div className="hero__content container flex-grow-1 mx-auto">

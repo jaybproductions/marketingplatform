@@ -29,7 +29,10 @@ const advancedFeatures = [
 const PricingContainer = () => {
   return (
     <div style={{ paddingTop: "10px" }} id="pricing">
-      <h1>Pricing</h1>
+      <div className="pricing-header" style={{ padding: "20px" }}>
+        <h1>Pricing</h1>
+      </div>
+
       <Grid container spacing={4} justify="center">
         <Grid item xs={12} sm={3} md={3} lg={3}>
           <PricingTable

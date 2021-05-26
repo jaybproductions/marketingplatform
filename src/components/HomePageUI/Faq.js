@@ -53,8 +53,12 @@ const Faq = () => {
     setExpanded(newExpanded ? panel : false);
   };
   return (
-    <div className="faq" id="faq" style={{ paddingTop: "20px" }}>
-      <h3>FAQ</h3>
+    <div
+      className="faq"
+      id="faq"
+      style={{ paddingTop: "20px", paddingBottom: "100px" }}
+    >
+      <h3 style={{ paddingBottom: "20px" }}>FAQ</h3>
       <div style={{ width: "60%", margin: "auto" }}>
         <Accordion
           square

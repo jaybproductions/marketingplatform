@@ -71,14 +71,18 @@ export default function WhyUs() {
           paddingTop: "25px",
         }}
       >
-        <Typography variant="h4" component="h4" style={{ color: "white" }}>
+        <Typography
+          variant="h4"
+          component="h4"
+          style={{ color: "white", paddingTop: "50px" }}
+        >
           Why us?
         </Typography>
       </div>
       <div
         className="why-us"
         id="why-us"
-        style={{ backgroundColor: "black", padding: "20px", width: "100%" }}
+        style={{ padding: "20px", width: "100%", paddingBottom: "100px" }}
       >
         <div className="container">
           <Paper>

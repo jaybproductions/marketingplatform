@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 200,
     height: 250,
+    padding: "20px",
   },
   bullet: {
     display: "inline-block",
@@ -51,8 +52,12 @@ const PricingTable = ({ title, features, price, link, buttonText }) => {
             className={classes.pos}
             color="textSecondary"
           ></Typography>
-          <Typography variant="body2" component="h5">
-            {price}
+          <Typography
+            variant="body2"
+            component="h5"
+            style={{ fontSize: "20px" }}
+          >
+            {price}/m
           </Typography>
         </CardContent>
         <CardActions>

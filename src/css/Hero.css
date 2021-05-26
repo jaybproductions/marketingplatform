@@ -245,9 +245,11 @@ button:focus {
 
 .logo-container {
   display: grid;
+  background: white;
   place-items: center;
-  border-radius: 180px;
+  border-radius: 20px;
   width: 100%;
+  padding-bottom: 20px;
 }
 
 .header-container {

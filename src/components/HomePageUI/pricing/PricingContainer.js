@@ -28,7 +28,7 @@ const advancedFeatures = [
 //Pricing Table Container
 const PricingContainer = () => {
   return (
-    <div style={{ paddingTop: "10px" }} id="pricing">
+    <div style={{ paddingTop: "100px", paddingBottom: "100px" }} id="pricing">
       <div className="pricing-header" style={{ padding: "20px" }}>
         <h1>Pricing</h1>
       </div>

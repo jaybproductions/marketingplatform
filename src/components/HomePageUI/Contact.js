@@ -23,7 +23,7 @@ const Contact = () => {
   };
   return (
     <div id="contact" style={{ padding: "20px" }}>
-      <h3>Contact Us</h3>
+      <h3 style={{ paddingBottom: "20px" }}>Contact Us</h3>
       <Card style={{ width: "75%", margin: "auto", padding: "30px" }}>
         <CardContent>
           <Grid container spacing={2} align="center">

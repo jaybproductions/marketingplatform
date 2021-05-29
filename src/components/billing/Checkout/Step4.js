@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Package from "./Package";
 import { Card, CardContent } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { handleCheckout } from "../../../utils/API/Stripe/api";
+import { createAwsInstance } from "../../../utils/API/AWS/api";
 
 //Finalize checkout and process payment through stripe -- create firebase account --
 const Step4 = ({ selectedPackage, email, name, password }) => {
@@ -18,29 +20,34 @@ const Step4 = ({ selectedPackage, email, name, password }) => {
 
   //this function handles the checkout process and creating a new user in fb - returns userid
   const handleToken = async (token, addresses) => {
-    const response = await axios.post(
-      `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/stripe/checkout` ||
-        `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/stripe/checkout`,
-      {
-        token: token,
-        product: product,
-        name: name,
-        email: email,
-        password: password,
-        instanceName: "",
-        bundleId: selectedPackage.bundleId,
-        blueprintId: selectedPackage.blueprintId,
-        availabilityZone: "us-east-1a",
-        packageNum: selectedPackage.number,
-      }
-
-      //!after checkout handle create instance // allocate static ip from aws routes
-    );
-
-    const { status, userId } = response.data;
+    const checkoutData = {
+      token: token,
+      product: product,
+      name: name,
+      email: email,
+      password: password,
+      instanceName: "",
+      bundleId: selectedPackage.bundleId,
+      blueprintId: selectedPackage.blueprintId,
+      availabilityZone: "us-east-1a",
+      packageNum: selectedPackage.number,
+    };
+    //!after checkout handle create instance // allocate static ip from aws routes
+    const response = await handleCheckout(checkoutData);
+    console.log(response);
+    const { status, userId } = response;
 
     if (status === "success") {
+      console.log(userId);
       toast.success("Your Payment has been made..");
+      //handle creating instances and allocating static here -
+      const createInstanceResponse = await createAwsInstance(
+        checkoutData,
+        userId
+      );
+
+      //console.log(createInstanceResponse);
+      //only want to create instance if payment is made
       history.push("/login");
     } else {
       toast.error("There has been an error.");

@@ -131,7 +131,7 @@ router.post("/checkout", async (req, res) => {
     status = "success";
 
     if (status === "success") {
-      firebase
+      await firebase
         .auth()
         .createUser({
           email: email,

@@ -35,3 +35,13 @@ export async function GetCardInfo(customerId, cardId) {
 
   return cardResponse.data;
 }
+
+export async function handleCheckout(checkoutData) {
+  const response = await axios.post(
+    `https://us-central1-marketingplatform-3b5c7.cloudfunctions.net/app/stripe/checkout` ||
+      `http://localhost:5001/marketingplatform-3b5c7/us-central1/app/stripe/checkout`,
+    checkoutData
+  );
+
+  return response.data;
+}

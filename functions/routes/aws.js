@@ -96,16 +96,19 @@ router.post("/attachip", (req, res) => {
   });
 });
 
-router.post("/allocateip", (req, res) => {
+router.post("/:userId/allocateip", (req, res) => {
+  const { userId } = req.body;
   //!This creates a new static ip -- using frontend to assign that created ip on first load
   lightsail.allocateStaticIp(
     {
-      staticIpName: `StaticIp-${user.uid}`,
+      staticIpName: `StaticIp-${userId}`,
     },
     (err, data) => {
       console.log(data);
     }
   );
+
+  res.send("Static ip sucsessfully allocated");
 });
 
 module.exports = router;
